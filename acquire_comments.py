@@ -28,6 +28,7 @@ class ResponseError(Exception):
         except:
             msg = resp
         Exception.__init__(self, msg)
+
 class TooManyApiCalls(Exception):
     def __init__(self):
         msg = "Too many API calls - exception handled. Decreased Req"
@@ -145,4 +146,4 @@ if __name__ == '__main__':
 
     from multiprocessing import Pool
     with Pool(2) as pool:
-        pool.map(main_stored, [x  for x in groups])
+        pool.map(main_stored, [x for x in groups])
