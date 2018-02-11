@@ -121,7 +121,7 @@ class DB():
 
     @DBDecorator.put_many
     def add_comments(self, group, post, comments):
-        stmt = "INSERT IGNORE INTO comments VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        stmt = "INSERT IGNORE INTO comments VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
         args = tuple(zip(['{}_{}_{}'.format(group, post, x['id']) for x in comments],
                          [group for x in range(len(comments))],
@@ -129,6 +129,7 @@ class DB():
                          [x['id'] for x in comments],
                          [x['from_id'] for x in comments],
                          [x['text'] for x in comments],
+                         [x['likes']['count'] for x in comments],
                          [datetime.fromtimestamp(x['date']).strftime('%Y-%m-%d %H:%M:%S') for x in comments],
                          [x['reply_to_user'] if 'reply_to_user' in x.keys() else None for x in comments],
                          [x['reply_to_comment']  if 'reply_to_comment' in x.keys() else None for x in comments]))
@@ -151,7 +152,7 @@ class DB():
 
     @DBDecorator.put
     def _add_done_upd(self, group, post, comments_count, processed_count):
-        stmt = "UPDATE done SET processed_count=%s WHERE id=%s"
+        stmt = "UPDATE done SET processed_count=processed_count+%s WHERE id=%s"
         args = (processed_count, '{}_{}'.format(group, post))
         return stmt, args
 
@@ -159,4 +160,10 @@ class DB():
     def get_done(self):
         stmt = "SELECT id FROM done WHERE comments_count=processed_count"
         args = ()
+        return stmt, args
+
+    @DBDecorator.get
+    def get_done_by_group(self, group):
+        stmt = "SELECT count(id) FROM done WHERE group_id=%s AND comments_count=processed_count"
+        args = (group, )
         return stmt, args
