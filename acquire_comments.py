@@ -37,10 +37,10 @@ class TooManyApiCalls(Exception):
 def vkapi(func):
     def inner(*args, **kwargs):
         params = func(*args, **kwargs)
-        url = URL + params #+ 'access_token={}'.format(token)
-        resp = requests.get(url).json()
         counter = 0
         while counter < 5:
+            url = URL + params #+ 'access_token={}'.format(token)
+            resp = requests.get(url).json()
             try:
                 return resp['response']
             except KeyError:
@@ -56,6 +56,8 @@ def vkapi(func):
                     continue
                 elif 'Too many operations' in resp['error']['error_msg']:
                     print('Hit the ToManyOperationsError. Sleep 1 sec and continue')
+                    from re import sub
+                    sub('req=[0-9]{2}&', 'req=15&', params)
                     sleep(1)
                     counter += 1
                     continue
