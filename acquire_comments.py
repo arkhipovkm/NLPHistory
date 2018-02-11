@@ -142,6 +142,7 @@ def main_stored(group):
     while offset < posts_count + 25:
         response = execute_get_comments(group, offset=offset)
         if not response:
+            offset = offset + 25
             continue
         with DB() as db:
             for item in response['items']:
