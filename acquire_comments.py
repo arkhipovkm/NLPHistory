@@ -86,5 +86,5 @@ if __name__ == '__main__':
     groups = groups_get()['items']
 
     from multiprocessing import Pool
-    with Pool() as pool:
+    with Pool(2) as pool:
         pool.starmap(main, [(x,)  for x in groups])
