@@ -63,7 +63,7 @@ def vkapi(func):
                     continue
                 else:
                     raise ResponseError(resp)
-        raise ResponseError(resp)
+        return None
     return inner
 
 @vkapi
@@ -141,6 +141,8 @@ def main_stored(group):
 
     while offset < posts_count + 25:
         response = execute_get_comments(group, offset=offset)
+        if not response:
+            continue
         with DB() as db:
             for item in response['items']:
                 db.add_comments(abs(int(item['group'])), int(item['post']), item['comments']['items'])
