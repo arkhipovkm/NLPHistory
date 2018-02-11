@@ -38,7 +38,7 @@ def vkapi(func):
     def inner(*args, **kwargs):
         params = func(*args, **kwargs)
         counter = 0
-        while counter < 5:
+        while counter < 3:
             url = URL + params #+ 'access_token={}'.format(token)
             resp = requests.get(url).json()
             try:
@@ -142,7 +142,7 @@ def main_stored(group):
     while offset < posts_count + 25:
         response = execute_get_comments(group, offset=offset)
         if not response:
-            offset = offset + 25
+            offset = offset + 50
             continue
         with DB() as db:
             for item in response['items']:
