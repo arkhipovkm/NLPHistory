@@ -50,7 +50,10 @@ def vkapi(func):
                     counter += 1
                     continue
                 elif 'Too many API calls' in resp['error']['error_msg']:
-                    raise TooManyApiCalls
+                    #raise TooManyApiCalls
+                    sleep(1)
+                    counter += 1
+                    continue
                 else:
                     raise ResponseError(resp)
         raise ResponseError(resp)
