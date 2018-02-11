@@ -54,6 +54,11 @@ def vkapi(func):
                     sleep(1)
                     counter += 1
                     continue
+                elif 'Too many operations' in resp['error']['error_msg']:
+                    print('Hit the ToManyOperationsError. Sleep 1 sec and continue')
+                    sleep(1)
+                    counter += 1
+                    continue
                 else:
                     raise ResponseError(resp)
         raise ResponseError(resp)
@@ -144,8 +149,8 @@ def main_stored(group):
 
 if __name__ == '__main__':
 
-    groups = groups_get()['items']
-    main_stored(groups[0])
+    groups = groups_get()['items'][2:]
+    #main_stored(groups[0])
 
     from multiprocessing import Pool
     with Pool(2) as pool:
