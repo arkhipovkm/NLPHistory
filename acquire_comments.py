@@ -154,7 +154,7 @@ def main_stored(group):
 
 if __name__ == '__main__':
 
-    groups = groups_get()['items'][2:]
+    groups = groups_get()['items'][4:]
     #main_stored(groups[0])
 
     from multiprocessing import Pool
