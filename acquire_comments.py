@@ -145,4 +145,4 @@ if __name__ == '__main__':
 
     from multiprocessing import Pool
     with Pool(2) as pool:
-        pool.starmap(main_stored, [(x,)  for x in groups])
+        pool.map(main_stored, [x  for x in groups])
