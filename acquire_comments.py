@@ -74,11 +74,11 @@ def wall_get_comments(group, post, offset=0):
 @vkapi
 def execute_get_comments(group, offset=0):
     try:
-        req = 23
+        req = 22
         return 'execute.getComments?group=-{}&offset={}&v=5.71&req={}&access_token={}'.format(group, offset, req, __marianne_token__)
     except TooManyApiCalls:
         sleep(0.5)
-        req -= 3
+        req -= 2
         return 'execute.getComments?group=-{}&offset={}&v=5.71&req={}&access_token={}'.format(group, offset, req, __marianne_token__)
 
 
