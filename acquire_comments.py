@@ -46,7 +46,7 @@ def vkapi(func):
                     continue
                 else:
                     raise ResponseError(resp)
-    raise ResponseError(resp)
+        raise ResponseError(resp)
     return inner
 
 @vkapi
