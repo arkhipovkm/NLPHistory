@@ -1,5 +1,5 @@
-import os
-os.chdir('F:\\Users\\Kirill\\source\\repos\\NLPHistory')
+#import os
+#os.chdir('F:\\Users\\Kirill\\source\\repos\\NLPHistory')
 import requests
 from nlpdb import DB
 
@@ -83,8 +83,8 @@ def main(group):
 
 if __name__ == '__main__':
 
-    from multiprocessing import Pool
     groups = groups_get()['items']
 
-    with Pool(2) as pool:
+    from multiprocessing import Pool
+    with Pool() as pool:
         pool.starmap(main, [(x,)  for x in groups])
