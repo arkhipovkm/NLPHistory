@@ -55,9 +55,9 @@ def vkapi(func):
                     counter += 1
                     continue
                 elif 'Too many operations' in resp['error']['error_msg']:
-                    print('Hit the ToManyOperationsError. Sleep 1 sec and continue')
+                    print('Hit the TooManyOperationsError. Sleep 1 sec and continue')
                     from re import sub
-                    params = sub('&req=[0-9]{2}&', '&req=15&', params)
+                    params = sub('&req=[0-9]{2}&', '&req=10&', params)
                     sleep(1)
                     counter += 1
                     continue
