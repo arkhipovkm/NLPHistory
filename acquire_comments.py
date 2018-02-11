@@ -28,6 +28,10 @@ class ResponseError(Exception):
         except:
             msg = resp
         Exception.__init__(self, msg)
+class TooManyApiCalls(Exception):
+    def __init__(self):
+        msg = "Too many API calls - exception handled. Decreased Req"
+        Exception.__init__(self, msg)
 
 def vkapi(func):
     def inner(*args, **kwargs):
@@ -44,6 +48,8 @@ def vkapi(func):
                     sleep(1)
                     counter += 1
                     continue
+                elif 'Too many API calls' in resp['error']['error_msg']:
+                    raise TooManyApiCalls
                 else:
                     raise ResponseError(resp)
         raise ResponseError(resp)
@@ -63,7 +69,13 @@ def wall_get_comments(group, post, offset=0):
 
 @vkapi
 def execute_get_comments(group, offset=0):
-    return 'execute.getComments?group=-{}&offset={}&v=5.71&access_token={}'.format(group, offset, __marianne_token__)
+    try:
+        req = 23
+        return 'execute.getComments?group=-{}&offset={}&v=5.71&req={}&access_token={}'.format(group, offset, req, __marianne_token__)
+    except TooManyApiCalls:
+        sleep(0.5)
+        req -= 3
+        return 'execute.getComments?group=-{}&offset={}&v=5.71&req={}&access_token={}'.format(group, offset, req, __marianne_token__)
 
 
 def main(group):
