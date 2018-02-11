@@ -2,6 +2,7 @@
 #os.chdir('F:\\Users\\Kirill\\source\\repos\\NLPHistory')
 import requests
 from nlpdb import DB
+from time import sleep
 
 __marianne_token__ = '6faaf0f33949745684fdf0a59dfac78bd41562a3da95c009c0fb155458fa55b0d0199701f3309b9878d19' #WALL, OFFLINE
 __marianne_id__ = 395888840
@@ -40,11 +41,12 @@ def vkapi(func):
             except KeyError:
                 if 'Too many requests per second' in resp['error']['error_msg']:
                     print('Hit the frequency limit. Retry in 0.5 sec..')
-                    sleep(0.5)
+                    sleep(1)
                     counter += 1
                     continue
                 else:
                     raise ResponseError(resp)
+    raise ResponseError(resp)
     return inner
 
 @vkapi
