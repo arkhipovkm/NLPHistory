@@ -40,7 +40,7 @@ def vkapi(func):
                 return resp['response']
             except KeyError:
                 if 'Too many requests per second' in resp['error']['error_msg']:
-                    print('Hit the frequency limit. Retry in 0.5 sec..')
+                    print('Hit the frequency limit. Retry in 1 sec..')
                     sleep(1)
                     counter += 1
                     continue
@@ -132,5 +132,5 @@ if __name__ == '__main__':
     #main_stored(groups[0])
 
     from multiprocessing import Pool
-    with Pool(4) as pool:
+    with Pool(2) as pool:
         pool.starmap(main_stored, [(x,)  for x in groups])
