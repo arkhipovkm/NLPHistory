@@ -21,7 +21,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="nlp.py">
+    <Compile Include="acquire_comments.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="acquire_browser.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="NLPHistory.py" />
