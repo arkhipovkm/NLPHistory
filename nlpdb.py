@@ -164,6 +164,6 @@ class DB():
 
     @DBDecorator.get
     def get_done_by_group(self, group):
-        stmt = "SELECT count(id) FROM done WHERE group_id=%s AND comments_count=processed_count"
+        stmt = "SELECT count(id) FROM done WHERE group_id=%s AND processed_count >= comments_count"
         args = (group, )
         return stmt, args
