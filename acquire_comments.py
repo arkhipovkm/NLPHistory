@@ -13,7 +13,10 @@ URL = 'https://api.vk.com/method/'
 
 class ResponseError(Exception):
     def __init__(self, resp):
-        msg = 'Got the response with error: {}'.format(resp['error']['error_msg'])
+        try:
+            msg = 'Got the response with error: {}'.format(resp['error']['error_msg'])
+        except:
+            print(resp)
         Exception.__init__(self, msg)
 
 def vkapi(func):
