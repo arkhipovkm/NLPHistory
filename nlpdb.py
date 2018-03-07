@@ -2,8 +2,10 @@ from platform import system
 from time import sleep
 from datetime import datetime
 
-HOST = '37.139.47.125'
-PASS = 'Mmsr960514spvk'
+#HOST = '37.139.47.125'
+HOST = 'nlpdbinstance.c5zyxzo5smzm.us-west-2.rds.amazonaws.com'
+USER = 'kirill'
+PASS = 'kmsr890714'
 
 class DB():
 
@@ -73,16 +75,23 @@ class DB():
     def connect(self):
         if system() == 'Windows':
             import pymysql
+            '''
             con = pymysql.connect(user='marianne',
                                   database = 'nlp',
                                   host = HOST,
                                   password=PASS,
                                   charset='utf8mb4')
+                                  '''
+            con = pymysql.connect(user=USER,
+                                  database='nlp',
+                                  host=HOST,
+                                  password=PASS,
+                                  charset='utf8mb4')
         else:
             import mysql.connector
-            con = mysql.connector.connect(user='marianne',
+            con = mysql.connector.connect(user=USER,
                                             database = 'nlp',
-                                            host = 'localhost',
+                                            host = HOST,
                                             password=PASS,
                                             charset='utf8mb4',
                                             collation='utf8mb4_unicode_ci')
@@ -104,6 +113,19 @@ class DB():
 
     def close(self):
         self.con.close()
+
+    @DBDecorator.get
+    def custom_get(self, stmt, args):
+        return stmt, args
+
+    @DBDecorator.put
+    def custom_put(self, stmt, args):
+        return stmt, args
+
+    @DBDecorator.put_many
+    def custom_put_many(self, stmt, args):
+        return stmt, args
+
 
     @DBDecorator.put_many
     def add_users(self, users):
@@ -164,6 +186,6 @@ class DB():
 
     @DBDecorator.get
     def get_done_by_group(self, group):
-        stmt = "SELECT count(id) FROM done WHERE group_id=%s AND processed_count >= comments_count"
+        stmt = "SELECT count(distinct post_id) FROM done WHERE group_id=%s AND processed_count >= comments_count"
         args = (group, )
         return stmt, args

@@ -88,6 +88,8 @@ def execute_get_comments(group, offset=0):
         req -= 2
         return 'execute.getComments?group=-{}&offset={}&v=5.71&req={}&access_token={}'.format(group, offset, req, __marianne_token__)
 
+def get_offset(count, last_post, group):
+    post_id = wall_get(group, offset=count)['response'][0]['id']
 
 def main(group):
 
@@ -135,7 +137,7 @@ def main(group):
 def main_stored(group):
 
     with DB() as db:
-        offset = db.get_done_by_group(group)[0][0] - 1
+        offset = db.get_done_by_group(group)[0][0] + 1000
 
     posts_count = wall_get(group)['count']
 
@@ -154,9 +156,12 @@ def main_stored(group):
 
 if __name__ == '__main__':
 
-    groups = groups_get()['items'][4:]
-    #main_stored(groups[0])
+    groups = groups_get()['items']
+    for group in groups:
+        main_stored(group)
 
+    '''
     from multiprocessing import Pool
     with Pool(2) as pool:
         pool.map(main_stored, [x for x in groups])
+        '''
