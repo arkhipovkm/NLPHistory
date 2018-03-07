@@ -191,13 +191,13 @@ class DB():
         return stmt, args
 
     @DBDecorator.put
-    def put_next_offset(offset, group):
+    def put_next_offset(self, offset, group):
         stmt = 'UPDATE last_offsets SET offset=%s WHERE group=%s'
         args = (offset, group)
         return stmt, args
 
     @DBDecorator.get
-    def get_next_offset(group):
+    def get_next_offset(self, group):
         stmt = 'SELECT offset from last_offsets WHERE group=%s'
         args = (group, )
         return stmt, args
