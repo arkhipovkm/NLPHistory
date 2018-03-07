@@ -152,6 +152,7 @@ def main_stored(group):
                 db.add_users(item['comments']['profiles'])
                 db.add_done(abs(int(item['group'])), int(item['post']), item['comments']['count'], len(item['comments']['items']))
         offset = response['next_offset']
+        print('Acquired comments for posts upto: {}. Next_offset is: {}'.format(response['items'][-1]['post'], response['next_offset']))
 
 
 if __name__ == '__main__':
