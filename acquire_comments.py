@@ -152,8 +152,8 @@ def main_stored(group):
                 db.add_done(abs(int(item['group'])), int(item['post']), item['comments']['count'], len(item['comments']['items']))
             offset = response['next_offset']
             db.put_next_offset(offset, group)
-        diff = (int(response['items'][-1]['post']) - int(response['items'][0]['post']))/length(response['items'])
-        print('Acquired comments for posts upto: {} ({}). Next_offset is: {}. Average diff per post: {}'.format(response['items'][-1]['post'], length(response['items']), response['next_offset'], diff))
+        diff = (int(response['items'][-1]['post']) - int(response['items'][0]['post'])) // len(response['items'])
+        print('Acquired comments for posts upto: {} ({}). Next_offset is: {}. Average diff per post: {}'.format(response['items'][-1]['post'], len(response['items']), response['next_offset'], diff))
 
 
 if __name__ == '__main__':
