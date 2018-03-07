@@ -20,7 +20,7 @@ class DB():
                         self.cur.execute(stmt, args)
                         self.con.commit()
                         break
-                    except Excepion as e:
+                    except Exception as e:
                         print('Exception in DB: iterating.. Error: ' + str(e))
                         self.close()
                         self.connect()
@@ -187,5 +187,17 @@ class DB():
     @DBDecorator.get
     def get_done_by_group(self, group):
         stmt = "SELECT count(distinct post_id) FROM done WHERE group_id=%s AND processed_count >= comments_count"
+        args = (group, )
+        return stmt, args
+
+    @DBDecorator.put
+    def put_next_offset(offset, group):
+        stmt = 'UPDATE last_offsets SET offset=%s WHERE group=%s'
+        args = (offset, group)
+        return stmt, args
+
+    @DBDecorator.get
+    def get_next_offset(group):
+        stmt = 'SELECT offset from last_offsets WHERE group=%s'
         args = (group, )
         return stmt, args

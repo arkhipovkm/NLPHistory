@@ -88,9 +88,6 @@ def execute_get_comments(group, offset=0):
         req -= 2
         return 'execute.getComments?group=-{}&offset={}&v=5.71&req={}&access_token={}'.format(group, offset, req, __marianne_token__)
 
-def get_offset(count, last_post, group):
-    post_id = wall_get(group, offset=count)['response'][0]['id']
-
 def main(group):
 
     with DB() as db:
@@ -137,7 +134,9 @@ def main(group):
 def main_stored(group):
 
     with DB() as db:
-        offset = db.get_done_by_group(group)[0][0] + 1000
+        offset = db.get_next_offset(group)[0][0]
+        if not offset:
+            offset = db.get_done_by_group(group)[0][0] + 1000
 
     posts_count = wall_get(group)['count']
 
@@ -151,7 +150,8 @@ def main_stored(group):
                 db.add_comments(abs(int(item['group'])), int(item['post']), item['comments']['items'])
                 db.add_users(item['comments']['profiles'])
                 db.add_done(abs(int(item['group'])), int(item['post']), item['comments']['count'], len(item['comments']['items']))
-        offset = response['next_offset']
+            offset = response['next_offset']
+            db.put_next_offset(offset, group)
         diff = (int(response['items'][-1]['post']) - int(response['items'][0]['post']))/length(response['items'])
         print('Acquired comments for posts upto: {} ({}). Next_offset is: {}. Average diff per post: {}'.format(response['items'][-1]['post'], length(response['items']), response['next_offset'], diff))
 
