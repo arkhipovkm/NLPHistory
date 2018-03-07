@@ -143,7 +143,7 @@ class DB():
 
     @DBDecorator.put_many
     def add_comments(self, group, post, comments):
-        stmt = "INSERT IGNORE INTO comments VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        stmt = "INSERT IGNORE INTO comments2 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
         args = tuple(zip(['{}_{}_{}'.format(group, post, x['id']) for x in comments],
                          [group for x in range(len(comments))],
