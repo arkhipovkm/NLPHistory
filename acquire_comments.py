@@ -136,11 +136,11 @@ def main_stored(group):
     with DB() as db:
         offset = db.get_next_offset(group)[0][0]
         if not offset:
-            offset = db.get_done_by_group(group)[0][0] + 1000
+            offset = db.get_done_by_group(group)[0][0]
 
     posts_count = wall_get(group)['count']
 
-    while offset < posts_count + 25 and offset/posts_count < 0.90:
+    while offset/posts_count < 0.60:
         response = execute_get_comments(group, offset=offset)
         if not response:
             #offset = offset + 50
