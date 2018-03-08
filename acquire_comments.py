@@ -140,7 +140,7 @@ def main_stored(group):
 
     posts_count = wall_get(group)['count']
 
-    while offset < posts_count + 25:
+    while offset < posts_count + 25 and offset/posts_count < 0.90:
         response = execute_get_comments(group, offset=offset)
         if not response:
             #offset = offset + 50
