@@ -5,6 +5,7 @@ import json
 import os
 import random
 import string
+import s3manager
 
 #HOST = '37.139.47.125'
 HOST = 'nlpdbinstance.c5zyxzo5smzm.us-west-2.rds.amazonaws.com'
@@ -156,9 +157,12 @@ class DB():
                          [x['country']['id'] if 'country' in x.keys() else None for x in users],
                          [x['city']['id'] if 'city' in x.keys() else None for x in users]))
         r = ''.join([random.choice(string.ascii_uppercase+string.ascii_lowercase) for x in range(12)])
-        filename = os.path.join(os.getcwd(), 'js_data', 'Users_args_{}'.format(r))
-        with open(filename, 'w') as f:
+        key = 'users/' + os.path.join(os.getcwd(), 'js_data', 'Users_args_{}'.format(r))
+        from io import StringIO
+        with StringIO() as f:
+        #with open(filename, 'w') as f:
             json.dump(args, f)
+            s3manager._s3_upload(f, key)
 
     @DBDecorator.put_many
     def add_comments(self, group, post, comments):
@@ -190,9 +194,13 @@ class DB():
                          [datetime.fromtimestamp(x['date']).strftime('%Y-%m-%d %H:%M:%S') for x in comments],
                          [x['reply_to_user'] if 'reply_to_user' in x.keys() else None for x in comments],
                          [x['reply_to_comment']  if 'reply_to_comment' in x.keys() else None for x in comments]))
-        filename = os.path.join(os.getcwd(), 'js_data', 'Comments_args_g{}_p{}_c{}'.format(group, post, len(comments)))
-        with open(filename, 'w') as f:
+        key = os.path.join(os.getcwd(), 'js_data', 'Comments_args_g{}_p{}_c{}'.format(group, post, len(comments)))
+        from io import StringIO
+        with StringIO() as f:
+        #with open(filename, 'w') as f:
             json.dump(args, f)
+            s3manager._s3_upload(f, key)
+            
 
     def add_done(self, group, post, comments_count, processed_count):
         self._add_done_ins(group, post, comments_count, processed_count)
