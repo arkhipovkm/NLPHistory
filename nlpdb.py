@@ -157,7 +157,7 @@ class DB():
                          [x['country']['id'] if 'country' in x.keys() else None for x in users],
                          [x['city']['id'] if 'city' in x.keys() else None for x in users]))
         r = ''.join([random.choice(string.ascii_uppercase+string.ascii_lowercase) for x in range(12)])
-        key = 'users/' + os.path.join(os.getcwd(), 'js_data', 'Users_args_{}'.format(r))
+        key = 'users/Users_args_{}'.format(r)
         from io import StringIO
         with StringIO() as f:
         #with open(filename, 'w') as f:
@@ -194,7 +194,7 @@ class DB():
                          [datetime.fromtimestamp(x['date']).strftime('%Y-%m-%d %H:%M:%S') for x in comments],
                          [x['reply_to_user'] if 'reply_to_user' in x.keys() else None for x in comments],
                          [x['reply_to_comment']  if 'reply_to_comment' in x.keys() else None for x in comments]))
-        key = os.path.join(os.getcwd(), 'js_data', 'Comments_args_g{}_p{}_c{}'.format(group, post, len(comments)))
+        key = 'comments/Comments_args_g{}_p{}_c{}'.format(group, post, len(comments))
         from io import StringIO
         with StringIO() as f:
         #with open(filename, 'w') as f:
