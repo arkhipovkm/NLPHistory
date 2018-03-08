@@ -148,12 +148,14 @@ def main_stored(group):
             #break
         with DB() as db:
             for item in response['items']:
-                db.add_comments(abs(int(item['group'])), int(item['post']), item['comments']['items'])
-                db.add_users(item['comments']['profiles'])
+                #db.add_comments(abs(int(item['group'])), int(item['post']), item['comments']['items'])
+                DB.add_comments_json(abs(int(item['group'])), int(item['post']), item['comments']['items'])
+                #db.add_users(item['comments']['profiles'])
+                DB.add_users_json(item['comments']['profiles'])
                 db.add_done(abs(int(item['group'])), int(item['post']), item['comments']['count'], len(item['comments']['items']))
             offset = response['next_offset']
             db.put_next_offset(offset, group)
-        diff = (int(response['items'][-1]['post']) - int(response['items'][0]['post'])) // len(response['items'])
+        #diff = (int(response['items'][-1]['post']) - int(response['items'][0]['post'])) // len(response['items'])
         print('Acquired comments for posts upto: {} ({}). Next_offset is: {}. Group: {}'.format(response['items'][-1]['post'], len(response['items']), response['next_offset'], response['items'][0]['group']))
 
 

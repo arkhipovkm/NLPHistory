@@ -1,6 +1,10 @@
 from platform import system
 from time import sleep
 from datetime import datetime
+import json
+import os
+import random
+import string
 
 #HOST = '37.139.47.125'
 HOST = 'nlpdbinstance.c5zyxzo5smzm.us-west-2.rds.amazonaws.com'
@@ -140,6 +144,20 @@ class DB():
                          [x['city']['id'] if 'city' in x.keys() else None for x in users]))
         return stmt, args
 
+    @staticmethod
+    def add_users_json(self, users):
+        stmt = "INSERT IGNORE INTO users VALUES (%s, %s, %s, %s, %s, %s, %s)"
+
+        args = tuple(zip([x['id'] for x in users],
+                         [x['first_name'] for x in users],
+                         [x['last_name'] for x in users],
+                         [x['sex'] if 'sex' in x.keys() else None for x in users],
+                         [x['bdate'] if 'bdate' in x.keys() else None for x in users],
+                         [x['country']['id'] if 'country' in x.keys() else None for x in users],
+                         [x['city']['id'] if 'city' in x.keys() else None for x in users]))
+        filename = os.path.join(os.getcwd(), 'js_data', 'Users_args_{}'.format(''.join(random.choices(string.ascii_uppercase+string.ascii_lowercase, k=8))))
+        with open(filename) as f:
+            json.dump(args, f)
 
     @DBDecorator.put_many
     def add_comments(self, group, post, comments):
@@ -155,8 +173,28 @@ class DB():
                          [datetime.fromtimestamp(x['date']).strftime('%Y-%m-%d %H:%M:%S') for x in comments],
                          [x['reply_to_user'] if 'reply_to_user' in x.keys() else None for x in comments],
                          [x['reply_to_comment']  if 'reply_to_comment' in x.keys() else None for x in comments]))
+        filename = os.path.join(os.getcwd(), 'js_data', 'Comments_args_g{}_p{}_c{}'.format(group, post, len(comments)))
+        with open(filename, 'w') as f:
+            json.dump(args, f)
         return stmt, args
 
+    @staticmethod
+    def add_comments_json(self, group, post, comments):
+        stmt = "INSERT IGNORE INTO comments2 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+        args = tuple(zip(['{}_{}_{}'.format(group, post, x['id']) for x in comments],
+                         [group for x in range(len(comments))],
+                         [post for x in range(len(comments))],
+                         [x['id'] for x in comments],
+                         [x['from_id'] for x in comments],
+                         [x['text'] for x in comments],
+                         [x['likes']['count'] for x in comments],
+                         [datetime.fromtimestamp(x['date']).strftime('%Y-%m-%d %H:%M:%S') for x in comments],
+                         [x['reply_to_user'] if 'reply_to_user' in x.keys() else None for x in comments],
+                         [x['reply_to_comment']  if 'reply_to_comment' in x.keys() else None for x in comments]))
+        filename = os.path.join(os.getcwd(), 'js_data', 'Comments_args_g{}_p{}_c{}'.format(group, post, len(comments)))
+        with open(filename, 'w') as f:
+            json.dump(args, f)
 
     def add_done(self, group, post, comments_count, processed_count):
         self._add_done_ins(group, post, comments_count, processed_count)
