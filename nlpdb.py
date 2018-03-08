@@ -157,7 +157,7 @@ class DB():
                          [x['city']['id'] if 'city' in x.keys() else None for x in users]))
         r = ''.join([random.choice(string.ascii_uppercase+string.ascii_lowercase) for x in range(8)])
         filename = os.path.join(os.getcwd(), 'js_data', 'Users_args_{}'.format(r))
-        with open(filename) as f:
+        with open(filename, 'w') as f:
             json.dump(args, f)
 
     @DBDecorator.put_many
@@ -174,9 +174,6 @@ class DB():
                          [datetime.fromtimestamp(x['date']).strftime('%Y-%m-%d %H:%M:%S') for x in comments],
                          [x['reply_to_user'] if 'reply_to_user' in x.keys() else None for x in comments],
                          [x['reply_to_comment']  if 'reply_to_comment' in x.keys() else None for x in comments]))
-        filename = os.path.join(os.getcwd(), 'js_data', 'Comments_args_g{}_p{}_c{}'.format(group, post, len(comments)))
-        with open(filename, 'w') as f:
-            json.dump(args, f)
         return stmt, args
 
     @staticmethod
