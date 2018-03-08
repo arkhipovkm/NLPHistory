@@ -3,6 +3,8 @@
 import requests
 from nlpdb import DB
 from time import sleep
+from datetime import datetime
+
 
 __marianne_token__ = '6faaf0f33949745684fdf0a59dfac78bd41562a3da95c009c0fb155458fa55b0d0199701f3309b9878d19' #WALL, OFFLINE
 __marianne_id__ = 395888840
@@ -156,7 +158,7 @@ def main_stored(group):
             offset = response['next_offset']
             db.put_next_offset(offset, group)
         #diff = (int(response['items'][-1]['post']) - int(response['items'][0]['post'])) // len(response['items'])
-        print('Acquired comments for posts upto: {} ({}). Next_offset is: {}. Group: {}'.format(response['items'][-1]['post'], len(response['items']), response['next_offset'], response['items'][0]['group']))
+        print('{} --- Acquired comments for posts upto: {} ({}). Next_offset is: {}. Group: {}'.format(datetime.now()response['items'][-1]['post'], len(response['items']), response['next_offset'], response['items'][0]['group']))
 
 
 if __name__ == '__main__':
