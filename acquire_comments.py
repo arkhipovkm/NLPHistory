@@ -160,7 +160,7 @@ def main_stored(group):
 if __name__ == '__main__':
 
     groups = groups_get()['items']
-    for group in groups:
+    for group in groups[::-1]:
         main_stored(group)
 
     '''
