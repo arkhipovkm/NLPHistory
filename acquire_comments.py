@@ -143,8 +143,9 @@ def main_stored(group):
     while offset/posts_count < 0.60:
         response = execute_get_comments(group, offset=offset)
         if not response:
-            #offset = offset + 50
-            break
+            print('Skipped request..')
+            continue
+            #break
         with DB() as db:
             for item in response['items']:
                 db.add_comments(abs(int(item['group'])), int(item['post']), item['comments']['items'])
