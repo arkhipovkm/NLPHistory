@@ -155,7 +155,8 @@ class DB():
                          [x['bdate'] if 'bdate' in x.keys() else None for x in users],
                          [x['country']['id'] if 'country' in x.keys() else None for x in users],
                          [x['city']['id'] if 'city' in x.keys() else None for x in users]))
-        filename = os.path.join(os.getcwd(), 'js_data', 'Users_args_{}'.format(''.join(random.choices(string.ascii_uppercase+string.ascii_lowercase, k=8))))
+        r = ''.join([random.choice(string.ascii_uppercase+string.ascii_lowercase) for x in range(8)])
+        filename = os.path.join(os.getcwd(), 'js_data', 'Users_args_{}'.format(r))
         with open(filename) as f:
             json.dump(args, f)
 
