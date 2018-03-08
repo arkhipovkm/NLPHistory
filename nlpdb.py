@@ -145,7 +145,7 @@ class DB():
         return stmt, args
 
     @staticmethod
-    def add_users_json(self, users):
+    def add_users_json(users):
         stmt = "INSERT IGNORE INTO users VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
         args = tuple(zip([x['id'] for x in users],
@@ -179,7 +179,7 @@ class DB():
         return stmt, args
 
     @staticmethod
-    def add_comments_json(self, group, post, comments):
+    def add_comments_json(group, post, comments):
         stmt = "INSERT IGNORE INTO comments2 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
         args = tuple(zip(['{}_{}_{}'.format(group, post, x['id']) for x in comments],
