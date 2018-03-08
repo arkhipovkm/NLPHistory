@@ -158,7 +158,7 @@ def main_stored(group):
             offset = response['next_offset']
             db.put_next_offset(offset, group)
         #diff = (int(response['items'][-1]['post']) - int(response['items'][0]['post'])) // len(response['items'])
-        print('{} --- Acquired comments for posts upto: {} ({}). Next_offset is: {}. Group: {}'.format(datetime.now()response['items'][-1]['post'], len(response['items']), response['next_offset'], response['items'][0]['group']))
+        print('{} --- Acquired comments for posts upto: {} ({}). Next_offset is: {}. Group: {}'.format(datetime.now(), response['items'][-1]['post'], len(response['items']), response['next_offset'], response['items'][0]['group']))
 
 
 if __name__ == '__main__':
