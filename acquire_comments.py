@@ -48,7 +48,7 @@ def vkapi(func):
             except KeyError:
                 if 'Too many requests per second' in resp['error']['error_msg']:
                     print('Hit the frequency limit. Retry in 1 sec... Retry {}'.format(counter))
-                    sleep(1)
+                    sleep(2)
                     counter += 1
                     continue
                 elif 'Too many API calls' in resp['error']['error_msg']:
@@ -60,7 +60,7 @@ def vkapi(func):
                     print('Hit the TooManyOperationsError. Sleep 1 sec and continue/ Retry: {}'.format(counter))
                     from re import sub
                     params = sub('&req=[0-9]{2}&', '&req=10&', params)
-                    sleep(1)
+                    sleep(2)
                     counter += 1
                     continue
                 else:
