@@ -7,8 +7,8 @@ URL = 'https://s3-us-west-2.amazonaws.com/nlphistorys3/'
 #s3c = boto3.client('s3')
 s3r = boto3.resource('s3')
 
-def _s3_upload(ищвн, key, bucket=BUCKET):
-    s3r.bucket(BUCKET).put_object(Key=key, Body=body)
+def _s3_upload(body, key, bucket=BUCKET):
+    s3r.Bucket(BUCKET).put_object(Key=key, Body=body)
     #s3c.upload_fileobj(fileobj, bucket, key)
 
 def _s3_download(key, download_filename, bucket=BUCKET):
