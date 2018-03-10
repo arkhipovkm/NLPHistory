@@ -158,11 +158,11 @@ class DB():
                          [x['city']['id'] if 'city' in x.keys() else None for x in users]))
         r = ''.join([random.choice(string.ascii_uppercase+string.ascii_lowercase) for x in range(12)])
         key = 'users/Users_args_{}'.format(r)
-        from io import StringIO
-        with StringIO() as f:
+        #from io import StringIO
+        #with StringIO() as f:
         #with open(filename, 'w') as f:
-            json.dump(args, f)
-            s3manager._s3_upload(f, key)
+        js = json.dumps(args)
+        s3manager._s3_upload(js, key)
 
     @DBDecorator.put_many
     def add_comments(self, group, post, comments):
@@ -195,11 +195,11 @@ class DB():
                          [x['reply_to_user'] if 'reply_to_user' in x.keys() else None for x in comments],
                          [x['reply_to_comment']  if 'reply_to_comment' in x.keys() else None for x in comments]))
         key = 'comments/Comments_args_g{}_p{}_c{}'.format(group, post, len(comments))
-        from io import StringIO
-        with StringIO() as f:
+        #from io import StringIO
+        #with StringIO() as f:
         #with open(filename, 'w') as f:
-            json.dump(args, f)
-            s3manager._s3_upload(f, key)
+        js = json.dumps(args)
+        s3manager._s3_upload(js, key)
             
 
     def add_done(self, group, post, comments_count, processed_count):
