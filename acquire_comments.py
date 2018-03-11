@@ -164,7 +164,8 @@ def main_stored(group):
 
 if __name__ == '__main__':
 
-    groups = db.custom_get('select last_offsets.group from last_offsets where offset/total < 0.6', ())
+    with DB() as db:
+        groups = db.custom_get('select last_offsets.group from last_offsets where offset/total < 0.6', ())
     groups = [x[0] for x in groups]
     #groups = groups_get()['items']
     #done = {24199209, 26284064, 40316705}
