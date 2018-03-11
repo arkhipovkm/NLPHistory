@@ -1,5 +1,5 @@
-#import os
-#os.chdir('F:\\Users\\Kirill\\source\\repos\\NLPHistory')
+import os
+os.chdir('F:\\Users\\Kirill\\source\\repos\\NLPHistory')
 import requests
 from nlpdb import DB
 from time import sleep
@@ -164,10 +164,12 @@ def main_stored(group):
 
 if __name__ == '__main__':
 
-    groups = groups_get()['items']
-    done = {24199209, 26284064, 40316705}
-    groups = [x for x in groups if x not in done]
-    for group in groups[::-1]:
+    groups = db.custom_get('select last_offsets.group from last_offsets where offset/total < 0.6', ())
+    groups = [x[0] for x in groups]
+    #groups = groups_get()['items']
+    #done = {24199209, 26284064, 40316705}
+    #groups = [x for x in groups if x not in done]
+    for group in groups:
         main_stored(group)
 
     '''
