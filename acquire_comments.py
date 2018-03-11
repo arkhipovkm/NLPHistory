@@ -171,7 +171,7 @@ if __name__ == '__main__':
     #groups = groups_get()['items']
     #done = {24199209, 26284064, 40316705}
     #groups = [x for x in groups if x not in done]
-    for group in groups:
+    for group in groups[1:]:
         main_stored(group)
 
     '''
