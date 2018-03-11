@@ -40,7 +40,7 @@ def vkapi(func):
     def inner(*args, **kwargs):
         params = func(*args, **kwargs)
         counter = 0
-        while counter < 3:
+        while counter < 1:
             url = URL + params #+ 'access_token={}'.format(token)
             resp = requests.get(url).json()
             try:
@@ -48,7 +48,7 @@ def vkapi(func):
             except KeyError:
                 if 'Too many requests per second' in resp['error']['error_msg']:
                     print('Hit the frequency limit. Retry in 1 sec... Retry {}'.format(counter))
-                    sleep(2)
+                    sleep(1)
                     counter += 1
                     continue
                 elif 'Too many API calls' in resp['error']['error_msg']:
@@ -165,7 +165,7 @@ def main_stored(group):
 if __name__ == '__main__':
 
     groups = groups_get()['items']
-    for group in groups:#[::-1]:
+    for group in groups[::-1]:
         main_stored(group)
 
     '''
