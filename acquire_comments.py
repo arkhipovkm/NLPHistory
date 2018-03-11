@@ -146,7 +146,7 @@ def main_stored(group):
     while offset/posts_count < 0.60:
         response = execute_get_comments(group, offset=offset)
         if not response:
-            offset += 20
+            offset += 1
             print('Skipped request..')
             continue
             #break
