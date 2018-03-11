@@ -1,5 +1,5 @@
-import os
-os.chdir('F:\\Users\\Kirill\\source\\repos\\NLPHistory')
+#import os
+#os.chdir('F:\\Users\\Kirill\\source\\repos\\NLPHistory')
 import requests
 from nlpdb import DB
 from time import sleep
