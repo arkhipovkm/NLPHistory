@@ -194,7 +194,8 @@ class DB():
                          [datetime.fromtimestamp(x['date']).strftime('%Y-%m-%d %H:%M:%S') for x in comments],
                          [x['reply_to_user'] if 'reply_to_user' in x.keys() else None for x in comments],
                          [x['reply_to_comment']  if 'reply_to_comment' in x.keys() else None for x in comments]))
-        key = 'comments/Comments_args_g{}_p{}_c{}'.format(group, post, len(comments))
+        r = ''.join([random.choice(string.ascii_uppercase+string.ascii_lowercase) for x in range(3)])
+        key = 'comments/Comments_args_g{}_p{}_c{}_r{}'.format(group, post, len(comments), r)
         #from io import StringIO
         #with StringIO() as f:
         #with open(filename, 'w') as f:
