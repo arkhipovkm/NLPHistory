@@ -14,8 +14,8 @@ __encryptify_id__ = 133644218
 
 __service_token__ = 'd556709dd556709dd556709de2d53779b1dd556d556709d8f21592aa71dfeb6a97cab4e'
 
-#token = __marianne_token__
-token = __encryptify_token__
+token = __marianne_token__
+#token = __encryptify_token__
 vk_id = __marianne_id__
 
 get_user_token_url = 'https://oauth.vk.com/authorize?client_id=6359340&redirect_uri=https://oauth.vk.com/blank.html&response_type=token&scope=wall'
@@ -141,6 +141,7 @@ def main_stored(group):
             offset = db.get_done_by_group(group)[0][0]
 
     posts_count = wall_get(group)['count']
+    #posts_count = 45000
 
     while offset/posts_count < 0.60:
         response = execute_get_comments(group, offset=offset)
