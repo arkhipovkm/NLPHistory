@@ -40,7 +40,7 @@ def vkapi(func):
     def inner(*args, **kwargs):
         params = func(*args, **kwargs)
         counter = 0
-        while counter < 1:
+        while counter < 3:
             url = URL + params #+ 'access_token={}'.format(token)
             resp = requests.get(url).json()
             try:
@@ -60,7 +60,7 @@ def vkapi(func):
                     print('Hit the TooManyOperationsError. Sleep 1 sec and continue/ Retry: {}'.format(counter))
                     from re import sub
                     params = sub('&req=[0-9]{2}&', '&req=10&', params)
-                    sleep(2)
+                    sleep(1)
                     counter += 1
                     continue
                 else:
