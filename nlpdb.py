@@ -6,6 +6,7 @@ import os
 import random
 import string
 import s3manager
+import json
 
 #HOST = '37.139.47.125'
 HOST = 'nlpdbinstance.c5zyxzo5smzm.us-west-2.rds.amazonaws.com'
