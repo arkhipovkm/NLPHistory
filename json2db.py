@@ -14,3 +14,4 @@ def main():
         elif 'comments/' in key:
             with DB() as db:
                 db.custom_put_many(stmt_c, args)
+        print('Added {} to Db'.format(key))
