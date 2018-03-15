@@ -23,7 +23,7 @@ for group in groups:
             'overall': {
                  'total': total,
                  'acquired': count,
-                 'percentage': '{:.2f}'.fromat(count/total) },
+                 'percentage': '{:.2f}'.format(count/total) },
             'years': {
                 '2017': count_2017,
                 '2016': count_2016,
