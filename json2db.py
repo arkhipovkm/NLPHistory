@@ -12,6 +12,9 @@ def main():
             with DB() as db:
                 db.custom_put_many(stmt_u, args)
         elif 'comments/' in key:
+            pass
+            '''
             with DB() as db:
                 db.custom_put_many(stmt_c, args)
+                '''
         print('Added {} to Db'.format(key))
