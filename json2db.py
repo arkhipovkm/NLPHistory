@@ -4,7 +4,7 @@ import json
 
 def main():
     list = s3manager._s3_list()
-    for key in list:
+    for key in [x for x in list if 'users/' in x]:
         args = s3manager._s3_get_object(key)
         stmt_c = 'insert ignore into nlp_isam.comments_isam values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
         stmt_u = 'insert ignore into nlp_isam.users_isam values (%s, %s, %s, %s, %s, %s, %s)'
