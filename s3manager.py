@@ -4,7 +4,7 @@ import botocore
 BUCKET = 'nlphistorys3'
 URL = 'https://s3-us-west-2.amazonaws.com/nlphistorys3/'
 
-#s3c = boto3.client('s3')
+s3c = boto3.client('s3')
 s3r = boto3.resource('s3')
 
 def _s3_upload(body, key, bucket=BUCKET):
@@ -13,6 +13,15 @@ def _s3_upload(body, key, bucket=BUCKET):
 
 def _s3_download(key, download_filename, bucket=BUCKET):
     s3r.Bucket(bucket).download_file(key, download_filename)
+
+def _s3_list():
+    obs = []
+    for obj in s3r.Bucket(BUCKET).objects.all():
+        obs.append(obj._key)
+    return obs
+
+def _s3_get_object(key):
+    return json.loads(s3c.get_object(Bucket=BUCKET, Key=key)['Body'].read().decode('utf8'))
 
 '''
 def _s3_make_public(key, bucket=BUCKET_EU):
