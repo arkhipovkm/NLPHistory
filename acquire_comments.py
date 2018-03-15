@@ -73,6 +73,10 @@ def groups_get():
     return 'groups.get?v=5.71&access_token={}'.format(__marianne_token__)
 
 @vkapi
+def groups_getById(group_ids):
+    return 'groups.getById?v=5.71&group_ids={}&access_token={}'.format(group_ids, __marianne_token__)
+
+@vkapi
 def wall_get(group, offset=0):
     return 'wall.get?owner_id=-{}&count=100&v=5.71&offset={}&access_token={}'.format(group, offset, __marianne_token__)
 
