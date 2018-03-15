@@ -15,15 +15,16 @@ for group in groups:
     total = group[-1]
 
     count = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s', (group_id, ))[0][0]
+    posts = db.custom_get('select count(distinct post_id) from nlp_isam.comments_isam where group_id=%s', (group_id, ))[0][0]
+
     count_2017 = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s and date > "20170101" and date < "20171231"', (group_id, ))[0][0]
     count_2016 = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s and date > "20160101" and date < "20161231"', (group_id, ))[0][0]
     count_2015 = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s and date > "20150101" and date < "20151231"', (group_id, ))[0][0]
 
     output = {group_name: {
             'overall': {
-                 'total': total,
-                 'acquired': count,
-                 'percentage': '{:.2f}'.format(count/total) },
+                 'total_comments': count,
+                 'percentage': '{:.2f}'.format(posts/total) },
             'years': {
                 '2017': count_2017,
                 '2016': count_2016,
