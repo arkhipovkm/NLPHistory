@@ -14,10 +14,10 @@ for group in groups:
     group_id = group[0]
     total = group[-1]
 
-    count = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s', (group_id, ))
-    count_2017 = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s and date > "20170101" and date < "20171231"', (group_id, ))
-    count_2016 = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s and date > "20160101" and date < "20161231"', (group_id, ))
-    count_2015 = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s and date > "20150101" and date < "20151231"', (group_id, ))
+    count = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s', (group_id, ))[0][0]
+    count_2017 = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s and date > "20170101" and date < "20171231"', (group_id, ))[0][0]
+    count_2016 = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s and date > "20160101" and date < "20161231"', (group_id, ))[0][0]
+    count_2015 = db.custom_get('select count(*) from nlp_isam.comments_isam where group_id=%s and date > "20150101" and date < "20151231"', (group_id, ))[0][0]
 
     output = {group_name: {
             'overall': {
