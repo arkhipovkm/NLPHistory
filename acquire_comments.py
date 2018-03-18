@@ -149,7 +149,7 @@ def main_stored(group):
     posts_count = wall_get(group)['count']
     #posts_count = 45000
 
-    while offset/posts_count < 0.60:
+    while offset/posts_count < 0.70:
         response = execute_get_comments(group, offset=offset)
         if not response:
             offset += 1
@@ -177,7 +177,7 @@ if __name__ == '__main__':
     #groups = groups_get()['items']
     #done = {24199209, 26284064, 40316705}
     #groups = [x for x in groups if x not in done]
-    groups = [29534144]
+    groups = [29534144, 25232578]
     for group in groups:
         main_stored(group)
 
