@@ -139,11 +139,14 @@ def main(group):
 
 def main_stored(group):
 
+    '''
     with DB() as db:
         offset = db.get_next_offset(group)[0][0]
         if not offset:
             offset = db.get_done_by_group(group)[0][0]
+            '''
 
+    offset = 0
     posts_count = wall_get(group)['count']
     #posts_count = 45000
 
@@ -169,13 +172,14 @@ def main_stored(group):
 
 if __name__ == '__main__':
 
-    with DB() as db:
-        groups = db.custom_get('select last_offsets.group from last_offsets where offset/total < 0.6 or offset is null', ())
-    groups = [x[0] for x in groups]
+    #with DB() as db:
+    #    groups = db.custom_get('select last_offsets.group from last_offsets where offset/total < 0.8 or offset is null', ())
+    #groups = [x[0] for x in groups]
     #groups = groups_get()['items']
     #done = {24199209, 26284064, 40316705}
     #groups = [x for x in groups if x not in done]
-    for group in groups[2:]:
+    groups = [29534144]
+    for group in groups:
         main_stored(group)
 
     '''
