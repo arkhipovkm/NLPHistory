@@ -139,14 +139,13 @@ def main(group):
 
 def main_stored(group):
 
-    '''
+
     with DB() as db:
         offset = db.get_next_offset(group)[0][0]
         if not offset:
             offset = db.get_done_by_group(group)[0][0]
-            '''
 
-    offset = 0
+    #offset = 0
     posts_count = wall_get(group)['count']
     #posts_count = 45000
 
