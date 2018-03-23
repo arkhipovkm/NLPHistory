@@ -145,11 +145,12 @@ def main_stored(group):
         if not offset:
             offset = db.get_done_by_group(group)[0][0]
 
-    #offset = 0
-    posts_count = wall_get(group)['count']
+    offset = 0
+    #posts_count = wall_get(group)['count']
     #posts_count = 45000
 
-    while offset/posts_count < 0.90:
+    #while offset/posts_count < 0.90:
+    while offset < 1000:
         response = execute_get_comments(group, offset=offset)
         if not response:
             offset += 1
@@ -171,13 +172,14 @@ def main_stored(group):
 
 if __name__ == '__main__':
 
-    #with DB() as db:
-    #    groups = db.custom_get('select last_offsets.group from last_offsets where offset/total < 0.8 or offset is null', ())
-    #groups = [x[0] for x in groups]
+    with DB() as db:
+        groups = db.custom_get('select last_offsets.group from last_offsets where offset/total < 0.8 or offset is null', ())
+    groups = [x[0] for x in groups]
+
     #groups = groups_get()['items']
     #done = {24199209, 26284064, 40316705}
     #groups = [x for x in groups if x not in done]
-    groups = [76982440]
+    #groups = [76982440]
     for group in groups:
         main_stored(group)
 
