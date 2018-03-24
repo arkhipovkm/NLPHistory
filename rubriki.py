@@ -18,17 +18,22 @@ def get_comments(rubric):
         with DB() as db:
             res = db.custom_get(stmt, args)
         rubric_comments.append(res)
-        print('Acquired comments for rubric: {}'.format(rubric))
+        print('Acquired comments for rubric: {}'.format(expr))
     return rubric_comments
 
 def main():
     rubrics = get_rubrics()
     result = []
+    total = 0
     for rubric in rubrics:
         comments = get_comments(rubric)
-        result.append({'rubric': rubric, 'count': len(comments), 'comments': comments})
-    with open('result_rubrics_comments.json', 'w') as f:
-        json.dump(result, f)
+        #result.append({'rubric': rubric, 'count': len(comments), 'comments': comments})
+        result.append({'rubric': rubric, 'count': len(comments)})
+        total += len(comments)
+    result_dict = {'total': total, 'rubrics': result}
+
+    with open('result_rubrics_comments_dict.json', 'w') as f:
+        json.dump(result_dict, f)
 
 if __name__ == '__main__':
     main()
