@@ -17,7 +17,7 @@ def get_comments(rubric):
         args = (expr, )
         with DB() as db:
             res = db.custom_get(stmt, args)
-        rubric_comments.append(res)
+        rubric_comments += res
         print('Acquired comments for rubric: {}'.format(expr))
     return rubric_comments
 
