@@ -24,6 +24,8 @@ def _s3_list():
 def _s3_get_object(key):
     return json.loads(s3c.get_object(Bucket=BUCKET, Key=key)['Body'].read().decode('utf8'))
 
+def _s3_upload_file(fileobj, key):
+    s3r.Bucket(bucket).upload_fileobj(fileobj, key)
 '''
 def _s3_make_public(key, bucket=BUCKET_EU):
     obj = s3r.Object(bucket, key)
