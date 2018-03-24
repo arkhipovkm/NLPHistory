@@ -26,11 +26,11 @@ def _s3_get_object(key):
 
 def _s3_upload_file(fileobj, key):
     s3r.Bucket(bucket).upload_fileobj(fileobj, key)
-'''
-def _s3_make_public(key, bucket=BUCKET_EU):
+
+def _s3_make_public(key, bucket=BUCKET):
     obj = s3r.Object(bucket, key)
     resp = obj.Acl().put(ACL='public-read')
-    '''
+    
 
 '''
 def put_s3(fileobj, key):
