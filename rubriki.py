@@ -1,6 +1,6 @@
 from nlpdb import DB
 import json
-from s3manager import _s3_upload, _s3_make_public
+from s3manager import _s3_upload, _s3_make_public, _s3_list
 
 def get_rubrics():
     with open('rubriki_list.txt', 'r', encoding='utf-8') as f:
@@ -40,5 +40,12 @@ def main():
     with open('result_rubrics_comments_dict_full.json', 'w') as f:
         json.dump(result_dict, f)
 
+def publicify():
+    for n in range(80):
+        key = 'rubrics/{}.json'.format(n)
+        _s3_make_public(key)
+        print(key)
+
 if __name__ == '__main__':
-    main()
+    #main()
+    publicify()
