@@ -1,5 +1,6 @@
 from nlpdb import DB
 import json
+from s3manager import _s3_upload
 
 def get_rubrics():
     with open('rubriki_list.txt', 'r', encoding='utf-8') as f:
@@ -27,12 +28,14 @@ def main():
     total = 0
     for rubric in rubrics:
         comments = get_comments(rubric)
-        #result.append({'rubric': rubric, 'count': len(comments), 'comments': comments})
-        result.append({'rubric': rubric, 'count': len(comments)})
+        res = {'rubric': rubric, 'count': len(comments), 'comments': comments}
+        #result.append(res)
+        _s3_upload(json.dumps(res), 'rubrics/{}.json'.format(rubrics.index(rubric)))
+        #result.append({'rubric': rubric, 'count': len(comments)})
         total += len(comments)
     result_dict = {'total': total, 'rubrics': result}
 
-    with open('result_rubrics_comments_dict.json', 'w') as f:
+    with open('result_rubrics_comments_dict_full.json', 'w') as f:
         json.dump(result_dict, f)
 
 if __name__ == '__main__':
