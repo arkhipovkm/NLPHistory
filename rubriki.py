@@ -57,7 +57,7 @@ def main():
     def savemeta():
         total = 0
         result= []
-        for rubric in rubrics[:5]:
+        for rubric in rubrics:
             comments = get_comments(rubric)
             res = {'rubric': rubric, 'count': len(comments)}
             result.append(res)
