@@ -17,8 +17,7 @@ def get_comments(rubric):
         stmt = '''select * from nlp_isam.comments_isam_young_text where match(text) against(%s in boolean mode)'''
         args = (expr, )
         with DB() as db:
-            res = db.custom_get(stmt, args
-
+            res = db.custom_get(stmt, args)
             def getmeta(comm_id):
                 return db.custom_get('''select user_id, reply_to_user is not null as isreply from comments_isam_young join users_isam on comments_isam_young.user_id=users_isam.id where comments_isam_young.id=%s''', (comm_id, ))[0]
 
@@ -58,14 +57,14 @@ def main():
     def savemeta():
         total = 0
         result= []
-        for rubric in rubrics:
+        for rubric in rubrics[:5]:
             comments = get_comments(rubric)
             res = {'rubric': rubric, 'count': len(comments)}
             result.append(res)
             total += len(comments)
         sorted_result = sorted(result, key=lambda x: x.count)
         result_dict = {'total': total, 'rubrics': result}
-        key='rubrics/meta/unique_and_primary.json'
+        key='rubrics/meta/unique.json'
         _s3_upload(json.dumps(res), key)
         _s3_make_public(key)
         return None
