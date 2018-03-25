@@ -18,10 +18,17 @@ def get_comments(rubric):
         args = (expr, )
         with DB() as db:
             res = db.custom_get(stmt, args)
+            def getmeta(comm_id):
+                return db.custom_get('''select user_id, reply_to_user is not null as isreply from comments_isam_young join users_isam on comments_isam_young.user_id=users_isam.id where comments_isam_young.id=%s''', (comm_id, ))[0]
+            resmeta = [[x]+list(getmeta(x[0])) for x in res]
 
-        def filter_unique(res):
+        def filter_unique(resmeta):
             seen = set()
-            res = [x for x in res if x[0] not in seen]
+            result = []
+            for x in resmeta:
+                if x[-2] not in seen:
+                    result.append(x)
+                    seen.add(x[-2])
 
         rubric_comments += filter_unique(res)
         print('Acquired comments for rubric: {}'.format(expr))

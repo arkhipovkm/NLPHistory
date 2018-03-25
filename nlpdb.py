@@ -89,14 +89,14 @@ class DB():
                                   charset='utf8mb4')
                                   '''
             con = pymysql.connect(user=USER,
-                                  database='nlp',
+                                  database='nlp_isam',
                                   host=HOST,
                                   password=PASS,
                                   charset='utf8mb4')
         else:
             import mysql.connector
             con = mysql.connector.connect(user=USER,
-                                            database = 'nlp',
+                                            database = 'nlp_isam',
                                             host = HOST,
                                             password=PASS,
                                             charset='utf8mb4',
