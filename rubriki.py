@@ -36,8 +36,6 @@ def get_comments(rubric):
     return rubric_comments
 
 def main():
-    result = []
-    total = 0
     rubrics = get_rubrics()
 
     def saveall():
@@ -52,6 +50,8 @@ def main():
             save_full(comments)
 
     def savemeta():
+        total = 0
+        result= []
         for rubric in rubrics:
             comments = get_comments(rubric)
             res = {'rubric': rubric, 'count': len(comments)}
