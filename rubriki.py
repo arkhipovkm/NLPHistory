@@ -45,6 +45,7 @@ def main():
 
     def savemeta():
         for rubric in rubrics:
+            comments = get_comments(rubric)
             res = {'rubric': rubric, 'count': len(comments)}
             result.append(res)
             total += len(comments)
