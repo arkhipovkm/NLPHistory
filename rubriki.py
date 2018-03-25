@@ -62,8 +62,8 @@ def main():
             res = {'rubric': rubric, 'count': len(comments)}
             result.append(res)
             total += len(comments)
-        sorted_result = sorted(result, key=lambda x: x.count)
-        result_dict = {'total': total, 'rubrics': result}
+        sorted_result = sorted(result, key=lambda x: x['count'])
+        result_dict = {'total': total, 'rubrics': sorted_result}
         key='rubrics/meta/unique.json'
         _s3_upload(json.dumps(res), key)
         _s3_make_public(key)
