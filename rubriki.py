@@ -18,27 +18,47 @@ def get_comments(rubric):
         args = (expr, )
         with DB() as db:
             res = db.custom_get(stmt, args)
-        rubric_comments += res
+
+        def filter_unique(res):
+            seen = set()
+            res = [x for x in res if x[0] not in seen]
+
+        rubric_comments += filter_unique(res)
         print('Acquired comments for rubric: {}'.format(expr))
     return rubric_comments
 
 def main():
-    rubrics = get_rubrics()
     result = []
     total = 0
-    for rubric in rubrics:
-        comments = get_comments(rubric)
-        res = {'rubric': rubric, 'count': len(comments), 'comments': comments}
-        #result.append(res)
-        key = 'rubrics/{}.json'.format(rubrics.index(rubric))
+    rubrics = get_rubrics()
+
+    def saveall():
+        def save_full(comments):
+            res = {'rubric': rubric, 'count': len(comments), 'comments': comments}
+            key = 'rubrics/{}.json'.format(rubrics.index(rubric))
+            _s3_upload(json.dumps(res), key)
+            _s3_make_public(key)
+            return None
+        for rubric in rubrics:
+            comments = get_comments(rubric)
+            save_full(comments)
+
+    def savemeta():
+        for rubric in rubrics:
+            res = {'rubric': rubric, 'count': len(comments)}
+            result.append(res)
+            total += len(comments)
+        sorted_result = sorted(result, key=lambda x: x.count)
+        result_dict = {'total': total, 'rubrics': result}
+        key='rubrics/meta/unique.json'
         _s3_upload(json.dumps(res), key)
         _s3_make_public(key)
-        #result.append({'rubric': rubric, 'count': len(comments)})
-        total += len(comments)
-    result_dict = {'total': total, 'rubrics': result}
+        return None
 
-    with open('result_rubrics_comments_dict_full.json', 'w') as f:
-        json.dump(result_dict, f)
+    savemeta()
+
+    #with open('result_rubrics_comments_dict_full.json', 'w') as f:
+    #    json.dump(result_dict, f)
 
 def publicify():
     for n in range(80):
@@ -47,5 +67,5 @@ def publicify():
         print(key)
 
 if __name__ == '__main__':
-    #main()
-    publicify()
+    main()
+    #publicify()
