@@ -29,6 +29,7 @@ def get_comments(rubric):
                 if x[-2] not in seen:
                     result.append(x)
                     seen.add(x[-2])
+            return result
 
         rubric_comments += filter_unique(res)
         print('Acquired comments for rubric: {}'.format(expr))
