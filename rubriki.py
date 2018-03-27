@@ -77,8 +77,9 @@ def main():
             rubric_num = n
             rubric_name = js['rubric']
             ids = [x[0][0] for x in js['comments']]
-            for id in ids:
-                db.custom_put('insert into id_rubric (id, rubric_id) values (%s, %s)', (id, n))
+            with DB() as db:
+                db.custom_put_many('insert into id_rubric (id, rubric_id) values (%s, %s)', tuple(zip([x for x in ids],
+                                                                                                      [n for x in ids])))
 
     #saveall()
     #savemeta()
