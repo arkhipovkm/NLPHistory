@@ -46,7 +46,7 @@ def main():
     def saveall():
         def save_full(comments):
             res = {'rubric': rubric, 'count': len(comments), 'comments': comments}
-            key = 'rubrics/{}.json'.format(rubrics.index(rubric))
+            key = 'rubrics/unique_primary/{}.json'.format(rubrics.index(rubric))
             _s3_upload(json.dumps(res), key)
             _s3_make_public(key)
             return None
@@ -69,7 +69,8 @@ def main():
         _s3_make_public(key)
         return None
 
-    savemeta()
+    saveall()
+    #savemeta()
 
     #with open('result_rubrics_comments_dict_full.json', 'w') as f:
     #    json.dump(result_dict, f)
