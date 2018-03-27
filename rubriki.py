@@ -73,8 +73,7 @@ def main():
     def populate_rubrics():
         for n in range(78):
             key = 'rubrics/unique_primary/{}.json'.format(n)
-            obj = s3manager._s3_get_object(key)
-            js = json.loads(obj)
+            js = s3manager._s3_get_object(key)
             rubric_num = n
             rubric_name = js['rubric']
             ids = [x[0][0] for x in js['comments']]
