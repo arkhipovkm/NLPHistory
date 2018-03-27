@@ -1,6 +1,7 @@
 from nlpdb import DB
 import json
 from s3manager import _s3_upload, _s3_make_public, _s3_list
+import s3manager
 
 def get_rubrics():
     with open('rubriki_list.txt', 'r', encoding='utf-8') as f:
@@ -69,8 +70,20 @@ def main():
         _s3_make_public(key)
         return None
 
-    saveall()
+    def populate_rubrics():
+        for n in range(78):
+            key = 'rubrics/unique_primary/{}.json'.format(n)
+            obj = s3manager._s3_get_object(key)
+            js = json.loads(obj)
+            rubric_num = n
+            rubric_name = js['rubric']
+            ids = [x[0][0] for x in js['comments']]
+            for id in ids:
+                db.custom_put('insert into id_rubric (id, rubric_id) values (%s, %s)', (id, n))
+
+    #saveall()
     #savemeta()
+    populate_rubrics()
 
     #with open('result_rubrics_comments_dict_full.json', 'w') as f:
     #    json.dump(result_dict, f)
@@ -83,4 +96,3 @@ def publicify():
 
 if __name__ == '__main__':
     main()
-    #publicify()
