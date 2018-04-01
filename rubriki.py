@@ -112,6 +112,6 @@ def publicify():
         print(key)
 
 if __name__ == '__main__':
-    #main()
-    rubs = get_rubrics()
-    pprint(rubs)
+    main()
+    #rubs = get_rubrics()
+    #pprint(rubs)
