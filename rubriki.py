@@ -65,7 +65,7 @@ def main():
             _s3_make_public(key)
             return None
         for rubric in rubrics:
-            comments = get_comments(rubric)
+            comments = get_comments(rubric['rubrics'])
             save_full(comments)
 
     def savemeta():
