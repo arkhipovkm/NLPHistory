@@ -2,21 +2,34 @@ from nlpdb import DB
 import json
 from s3manager import _s3_upload, _s3_make_public, _s3_list
 import s3manager
+from pprint import pprint
 
 def get_rubrics():
     with open('rubriki_list.txt', 'r', encoding='utf-8') as f:
         lines = f.readlines()
     rubrics = []
-    for line in lines[1:]:
-        r = line.strip('\n').split('. ')[-1].split(', ')
-        rubrics.append(r)
+    for line in lines:
+        line = line.strip('\n')
+        if '#' in line:
+            group = line.split('#')[-1]
+            continue
+        r = line.split('. ')[-1].split(', ')
+        rplus = []
+        for item in r:
+            if '+' in item or '- ' in item:
+                rplus.append('+ '+item)
+            else:
+                rplus.append(item)
+        rubrics.append({'group': group, 'rubrics': rplus})
     return rubrics
 
 def get_comments(rubric):
     rubric_comments = []
     for expr in rubric:
-        stmt = '''select * from nlp_isam.comments_isam_young_text where match(text) against(%s in boolean mode)'''
-        args = (expr, )
+        expr_lower = expr.lower()
+        stmt = '''select * from nlp_isam.comments_isam_young_text where match(text) against(%s in boolean mode) or
+                                                                        match(text) against(%s in boolean mode)'''
+        args = (expr, expr_lower)
         with DB() as db:
             res = db.custom_get(stmt, args)
             def getmeta(comm_id):
@@ -81,9 +94,13 @@ def main():
                 db.custom_put_many('insert into id_rubric (id, rubric_id) values (%s, %s)', tuple(zip([x for x in ids],
                                                                                                       [n for x in ids])))
 
-    #saveall()
+    def take_15_300():
+        with DB() as db:
+            first_15 = db.custom_get('select rubric_id from ')
+
+    saveall()
     #savemeta()
-    populate_rubrics()
+    #populate_rubrics()
 
     #with open('result_rubrics_comments_dict_full.json', 'w') as f:
     #    json.dump(result_dict, f)
@@ -95,4 +112,6 @@ def publicify():
         print(key)
 
 if __name__ == '__main__':
-    main()
+    #main()
+    rubs = get_rubrics()
+    pprint(rubs)
