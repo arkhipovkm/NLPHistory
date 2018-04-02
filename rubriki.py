@@ -51,7 +51,7 @@ def get_comments(rubric):
 
         resmeta = filter_primary(resmeta)
         rubric_comments += filter_unique(resmeta)
-        del res
+        #del res
         print('Acquired comments for rubric: {}'.format(expr))
     return rubric_comments
 
