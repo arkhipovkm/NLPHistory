@@ -87,7 +87,7 @@ def main():
         return None
 
     def populate_rubrics():
-        for n in range(78):
+        for n in range(71):
             key = 'rubrics/unique_primary/{}.json'.format(n)
             js = s3manager._s3_get_object(key)
             rubric_num = n
@@ -101,9 +101,9 @@ def main():
         with DB() as db:
             first_15 = db.custom_get('select rubric_id from ')
 
-    saveall()
+    #saveall()
     #savemeta()
-    #populate_rubrics()
+    populate_rubrics()
 
     #with open('result_rubrics_comments_dict_full.json', 'w') as f:
     #    json.dump(result_dict, f)
