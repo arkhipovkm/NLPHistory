@@ -94,8 +94,8 @@ def main():
             rubric_name = js['rubric']
             ids = [x[0][0] for x in js['comments']]
             with DB() as db:
-                db.custom_put_many('insert into id_rubric (id, rubric_id) values (%s, %s)', tuple(zip([x for x in ids],
-                                                                                                      [n for x in ids])))
+                db.custom_put_many('insert into id_rubric (comment_id, rubric_id) values (%s, %s)', tuple(zip([x for x in ids],
+                                                                                                              [rubric_num for x in ids])))
 
     def take_15_300():
         with DB() as db:
