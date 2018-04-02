@@ -94,7 +94,7 @@ def main():
             rubric_name = js['rubric']
             ids = [x[0][0] for x in js['comments']]
             with DB() as db:
-                db.custom_put_many('insert into id_rubric (id_primary, comment_id, rubric_id) values (%s, %s, %s)',
+                db.custom_put_many('insert ignore into id_rubric (id_primary, comment_id, rubric_id) values (%s, %s, %s)',
                                    tuple(zip(['{}_{}'.format(n, x) for x in ids],
                                              [x for x in ids],
                                              [n for x in ids])))
