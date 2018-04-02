@@ -14,15 +14,15 @@ def get_rubrics():
             group = line.split('#')[-1]
             continue
         r = line.split('. ')[-1].split(', ')
-        rplus = []
         '''
+        rplus = []
         for item in r:
             if '+' in item or '- ' in item:
                 rplus.append('+ '+item)
             else:
                 rplus.append(item)
                 '''
-        rubrics.append({'group': group, 'rubrics': rplus})
+        rubrics.append({'group': group, 'rubrics': r})
     return rubrics
 
 def get_comments(rubric):
