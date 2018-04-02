@@ -58,7 +58,7 @@ def get_comments(rubric):
     return rubric_comments
 
 def main():
-    rubrics = get_rubrics()[37:]
+    rubrics = get_rubrics()[36:]
 
     def saveall():
         def save_full(comments):
