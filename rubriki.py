@@ -64,6 +64,7 @@ def get_comments(rubric):
 
 def main():
     rubrics = get_rubrics()
+    rubrics = [x for x in rubrics if x['num'] in [55, 56]]
 
     def saveall():
         def save_full(comments):
