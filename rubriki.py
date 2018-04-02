@@ -15,11 +15,13 @@ def get_rubrics():
             continue
         r = line.split('. ')[-1].split(', ')
         rplus = []
+        '''
         for item in r:
             if '+' in item or '- ' in item:
                 rplus.append('+ '+item)
             else:
                 rplus.append(item)
+                '''
         rubrics.append({'group': group, 'rubrics': rplus})
     return rubrics
 
