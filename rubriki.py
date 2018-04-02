@@ -14,6 +14,7 @@ def get_rubrics():
             group = line.split('#')[-1]
             continue
         r = line.split('. ')[-1].split(', ')
+        num = int(line.split('. ')[0])
         '''
         rplus = []
         for item in r:
@@ -22,7 +23,7 @@ def get_rubrics():
             else:
                 rplus.append(item)
                 '''
-        rubrics.append({'group': group, 'rubrics': r})
+        rubrics.append({'group': group, 'num': num, 'rubrics': r})
     return rubrics
 
 def get_comments(rubric):
@@ -58,12 +59,12 @@ def get_comments(rubric):
     return rubric_comments
 
 def main():
-    rubrics = get_rubrics()[36:]
+    rubrics = get_rubrics()
 
     def saveall():
         def save_full(comments):
-            res = {'rubric': rubric, 'count': len(comments), 'comments': comments}
-            key = 'rubrics/unique_primary/{}.json'.format(rubrics.index(rubric))
+            res = {'group': rubric['group'], 'num': rubric['num'], 'rubric': rubric['rubrics'], 'count': len(comments), 'comments': comments}
+            key = 'rubrics/unique_primary/{}.json'.format(rubric['num'])
             _s3_upload(json.dumps(res), key)
             _s3_make_public(key)
             return None
@@ -103,9 +104,9 @@ def main():
         with DB() as db:
             first_15 = db.custom_get('select rubric_id from ')
 
-    #saveall()
+    saveall()
     #savemeta()
-    populate_rubrics()
+    #populate_rubrics()
 
     #with open('result_rubrics_comments_dict_full.json', 'w') as f:
     #    json.dump(result_dict, f)
