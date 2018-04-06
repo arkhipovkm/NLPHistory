@@ -118,5 +118,6 @@ if __name__ == '__main__':
     df = pd.read_pickle('df_indexed.pickle')
     config.update({'tools.staticdir.index': "index.html",
                    'tools.staticdir.dir': os.getcwd(),
-                   'tools.staticdir.on': True})
+                   'tools.staticdir.on': True,
+                   'server.socket_host': '0.0.0.0'})
     quickstart(Characterize())
