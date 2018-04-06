@@ -1,0 +1,355 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>Историческая память: характеризация</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <!--CSS-->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body onload="loadRubric()">
+    <header>
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+            <a id="brand" class="navbar-brand to-top" href="#">
+                Историческая память: характеристики
+            </a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <div class="row text-center">
+            <div id="colForAlert" class="col"></div>
+        </div>
+
+        <div class="row text-center">
+            <!--<div class="col">-->
+            <div class="col">
+                <!--<div class="card-deck">-->
+                <div class="accordion">
+                    <div class="card">
+                        <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <div class="card-header">
+                                Группа
+                            </div>
+                        </button>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body text-center">
+                                <h5 id="clubName" class="card-title"></h5>
+                                <p id="commentDate" class="card-text"></p>
+                                <a id="postLink" href="#" target="_blank" class="btn btn-secondary btn-block">Пост</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="accordion">
+                    <div class="card">
+                        <button class="btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            <div class="card-header">
+                                Пользователь
+                            </div>
+                        </button>
+                        <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body text-center">
+                                <h5 id="userName" class="card-title"></h5>
+                                <p id="userAge" class="card-text"></p>
+                                <a id="userLink" href="#" target="_blank" class="btn btn-secondary btn-block">Страничка</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col">
+                <div class="accordion">
+                    <div class="card">
+                        <button class="btn" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                            <div id="likesCount" class="card-header"></div>
+                        </button>
+                        <div id="collapseThree" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body text-center">
+                                <!--<h5 id="likesCount" class="card-title"></h5>-->
+
+                                <div class="progress">
+                                    <div id="likesProgressMean" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+                                    <div id="likesProgressCurrent" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+    </div>
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <p class="lead text-center comm-full"><b id="commentBody"></b></p>
+                <p id="commentCitation" class="lead text-right"></p>
+            </div>
+        </div>
+    </div>
+
+    <!--</div>-->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <form>
+                    <div class="form-row justify-content-center">
+                        <div class="col">
+                            <input type="hidden" id="index-input" name="index" value="" />
+                            <input type="hidden" id="rubric-id-input" name="rubric_id" value="" />
+                            <!--<label for="xar-input">Характеристика</label>-->
+                            <input type="text" id="xar-input" name="xar" class="form-control" placeholder="Характеристика">
+                        </div>
+                        <div class="col">
+                            <input type="text" id="note-input" name="note" class="form-control" placeholder="Комментарий">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <select class="form-control" name="xar_list" id="xar-list-input"></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <button id="submitBtn" role="button" type="submit" class="btn btn-primary btn-block">Утвердить</button>
+                        </div>
+                        <div class="col">
+                            <button id="skipBtn" role="button" type="button" class="btn btn-secondary btn-block">Пропустить</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#onDeleteModal">Удалить</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="onDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Удалить комментарий</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Назад">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Комментарий будет удален из базы данных.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+                    <button id="deleteIdx" type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="progress">
+                    <div id="progressCount" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 30%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <!-- Including jQuery Form plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+
+    <script>
+        var i = 0;
+        var DATA = {};
+        var COUNT = {};
+        var XARS = [];
+        /*
+        var DATA = {};
+        data.index = '24199209_6733875_0';
+        data.user_id = 2375393;
+        data.post_id = 6733875;
+        data.club_id = 24199209;
+        data.post_link = 'https://vk.com/public29534144?w=wall-29534144_7586565'
+        data.user_link = 'https://vk.com/id274875542'
+        data.age = 23;
+        data.likes = 50;
+        data.likes_max = 80;
+        data.likes_mean = 20;
+        data.date = '2016-11-07';
+        data.name = 'Василий Таратухин';
+        data.club_name = 'LIFE | Новости';
+        data.comment = 'Эээ... революция - кровь, смерть, слезы. Где это хоть на одной картинке? Не знаю, чем авторы вдохновлялись, но на октябрьскую революцию это точно не похоже';
+        data.total_count = 57;
+        data.num = 18;
+        data.xar_list = ['Qwerty', 'Azerty', 'FooBar'];
+        */
+
+        //$(document).ready(function () {
+
+        function drawOptions() {
+            var inner = '<option selected></option>';
+            try {
+                for (var i = 0; i < XARS.length; i++) {
+                    inner += '<option value="' + XARS[i] + '">' + XARS[i] + '</option>';
+                }
+            }
+            catch {
+                return inner
+            }
+            return inner
+        }
+
+        function draw(data) {
+
+            function drawLikesProgress() {
+                var percentCurrent = (data.likes / DATA.likes_mean) * 100;
+                var percentMean = 100 / Math.log10(percentCurrent / 5);
+                //console.log(percentMean);
+                //console.log(percentCurrent);
+                //percentCurrentShifted = (data.likes / DATA.likes_max - percentMean / 100) * 100;
+
+                if (percentCurrent < 100) {
+                    $('#likesProgressCurrent').removeClass('bg-success');
+                    $('#likesProgressCurrent').addClass('bg-danger');
+                }
+
+                $('#likesProgressMean').css('width', percentMean + '%');
+                $('#likesProgressCurrent').css('width', percentCurrent + '%');
+
+                //$('#likesProgressMean').text(Math.round(percentMean) + '%');
+                $('#likesProgressMean').text(DATA.likes_mean + '');
+                $('#likesProgressCurrent').text((percentCurrent / 100).toFixed(1) + 'х');
+            }
+
+            function drawCountProgress() {
+                var percent = (COUNT.done / COUNT.total) * 100;
+                $('#progressCount').css('width', percent + '%');
+                $('#progressCount').text(COUNT.done + ' / ' + COUNT.total);
+            }
+
+            data.name = data.first_name + ' ' + data.last_name;
+            data.age = Math.floor(data.age)
+            data.user_link = 'https://vk.com/id' + data.user_id;
+            data.post_link = 'https://vk.com/public' + data.club_id + '?w=wall-' + data.club_id + '_' + data.post_id
+
+            $('#clubName').text(data.club_name);
+            $("#postLink").attr("href", data.post_link);
+            $('#userName').text(data.name);
+            $('#userAge').text(Math.floor(data.age) + ' лет');
+            $('#userLink').attr("href", data.user_link);
+            $('#likesCount').text(data.likes + ' 👍')
+            drawLikesProgress();
+            $('#commentDate').text(data.date);
+            $('#commentBody').html(data.text)
+            $('#commentCitation').text('— ' + data.name + ', ' + data.age + ' лет')
+            $('#xar-list-input').html(drawOptions());
+            drawCountProgress();
+            $('#index-input').attr('value', data.comment_id);
+            $('#rubric-id-input').attr('value', DATA.rubric_id);
+
+        }
+
+        function drawBrand() {
+            $('#brand').text(DATA.group_name + ': ' + DATA.rubric_name + ' [' + DATA.rubric_id + ']')
+        }
+
+        $('form').validate({ // initialize the plugin
+            rules: {
+                xar: {
+                    required: function () {
+                            return $('#xar-list-input').val() == ''
+                        },
+                    minlength: 3
+                }
+            },
+            submitHandler: function (form) {
+                    $('form').ajaxSubmit({
+                        url: 'http://localhost:8080/process_xar',
+                        method: 'POST',
+                        //data: $('form').serialize(),
+                        success: function (resp) {
+                            i++;
+                            COUNT.done = resp.done;
+                            COUNT.total = resp.total;
+                            XARS = resp.xars;
+                            draw(DATA.whole_data[i]);
+
+                        }
+                    }
+                    );
+                    return false;
+                }
+        });
+
+        $('#deleteIdx').click(function () {
+            $.ajax({
+                url: 'http://localhost:8080/delete_idx',
+                method: 'POST',
+                data: {
+                    'index': DATA.whole_data[i].comment_id,
+                    'rubric_id': DATA.whole_data[i].rubric_id
+                },
+                success: function (resp) {
+                    i++;
+                    COUNT.done = resp.done;
+                    COUNT.total = resp.total;
+                    draw(DATA.whole_data[i]);
+                    $('#onDeleteModal').modal('hide');
+                }
+            })
+        })
+
+        $('#skipBtn').click(function () {
+            i++;
+            draw(DATA.whole_data[i]);
+        })
+
+        function loadRubric() {
+            var rid = document.URL.split('=')
+            //var rid = 3;
+            var resp = $.ajax({
+                url: 'http://localhost:8080/get_rubric/' + rid[1],
+                method: 'GET',
+                success: function (resp) {
+                    DATA = resp;
+                    COUNT.done = DATA.done_count;
+                    COUNT.total = DATA.total_count;
+                    XARS = DATA.xars_list;
+                    drawBrand();
+                    draw(DATA.whole_data[i]);
+                }
+            })
+        }
+
+    </script>
+</body>
+</html>

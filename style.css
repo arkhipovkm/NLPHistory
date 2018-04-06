@@ -1,3 +1,24 @@
 header {
-   margin-bottom: 60px;
+   margin-bottom: 80px;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.form-row {
+    margin-top: 10px;
+}
+
+.progress {
+    height: 30px;
+}
+
+.card {
+    height: inherit;
+}
+
+.row {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
