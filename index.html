@@ -293,7 +293,7 @@
             },
             submitHandler: function (form) {
                     $('form').ajaxSubmit({
-                        url: 'http://localhost:8080/process_xar',
+                        url: 'process_xar',
                         method: 'POST',
                         //data: $('form').serialize(),
                         success: function (resp) {
@@ -312,7 +312,7 @@
 
         $('#deleteIdx').click(function () {
             $.ajax({
-                url: 'http://localhost:8080/delete_idx',
+                url: 'delete_idx',
                 method: 'POST',
                 data: {
                     'index': DATA.whole_data[i].comment_id,
@@ -337,7 +337,7 @@
             var rid = document.URL.split('=')
             //var rid = 3;
             var resp = $.ajax({
-                url: 'http://localhost:8080/get_rubric/' + rid[1],
+                url: 'get_rubric/' + rid[1],
                 method: 'GET',
                 success: function (resp) {
                     DATA = resp;
