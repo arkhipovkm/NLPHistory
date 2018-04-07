@@ -281,7 +281,7 @@
                 $('#progressCount').text(COUNT.done + ' / ' + COUNT.total);
             }
 
-            if (i > DATA.whole_data.length) {
+            if (i > DATA.whole_data.length-1) {
                 $('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id) + 1))
             }
 
