@@ -365,7 +365,7 @@
             function randomIntFromInterval(min, max) {
                 return Math.floor(Math.random() * (max - min + 1) + min);
             }
-            r = randomIntFromInterval(i + 1, DATA.total_count);
+            r = randomIntFromInterval(i, DATA.total_count-1);
             draw(DATA.whole_data[r])
             r = 0;
         })
