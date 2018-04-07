@@ -72,9 +72,11 @@ class Characterize():
         response.headers['Content-Type'] = 'application/json'
         response.headers['Access-Control-Allow-Origin'] = '*'
         rubric_id = int(rubric_id)
-        ddf = df[df.rubric_id==rubric_id].sort_values(by=['likes'], ascending=False).drop_duplicates()
+        #ddf = df[df.rubric_id==rubric_id].sort_values(by=['likes'], ascending=False).drop_duplicates()
+        ddf = df[df.rubric_id==rubric_id].drop_duplicates()
+        #print(len(ddf))
         ddf['age'] = (ddf.date - ddf.bdate).dt.days/365
-
+        group_name = ddf.group.unique()[0]
         max_likes = int(max(ddf.likes))
         mean_likes = int(np.mean(ddf.likes))
 
@@ -100,7 +102,6 @@ class Characterize():
 
         rubric_name = pd.read_pickle('rubric_names.pickle')[rubric_id]
         #group_name = ddf.group.unique()[0]
-        group_name = ' '
         #ddf_js = ddf.head().to_json(orient='values')
 
         obj = {'rubric_id': rubric_id,
@@ -117,8 +118,9 @@ class Characterize():
 
 if __name__ == '__main__':
     df = pd.read_pickle('df_indexed.pickle')
+    #print(len(df))
     config.update({'tools.staticdir.index': "index.html",
                    'tools.staticdir.dir': os.getcwd(),
                    'tools.staticdir.on': True,
-                   'server.socket_host': '0.0.0.0'})
+                   'server.socket_host': '127.0.0.1'})
     quickstart(Characterize())

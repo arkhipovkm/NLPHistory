@@ -158,7 +158,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Delete -->
     <div class="modal fade" id="onDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -174,6 +174,25 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
                     <button id="deleteIdx" type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal All Done -->
+    <div class="modal fade" id="onAllDoneModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle2">Все комментарии в этой рубрике охарактеризованы!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Назад">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Введи другую рубрику в адресной строке и перезагрузи страницу. Или просто жми на кнопку:
+                </div>
+                <div class="modal-footer">
+                    <a href="" id="nextRubricBtn" class="btn btn-primary">Следующая рубрика</a>
                 </div>
             </div>
         </div>
@@ -209,28 +228,6 @@
         var DATA = {};
         var COUNT = {};
         var XARS = [];
-        /*
-        var DATA = {};
-        data.index = '24199209_6733875_0';
-        data.user_id = 2375393;
-        data.post_id = 6733875;
-        data.club_id = 24199209;
-        data.post_link = 'https://vk.com/public29534144?w=wall-29534144_7586565'
-        data.user_link = 'https://vk.com/id274875542'
-        data.age = 23;
-        data.likes = 50;
-        data.likes_max = 80;
-        data.likes_mean = 20;
-        data.date = '2016-11-07';
-        data.name = 'Василий Таратухин';
-        data.club_name = 'LIFE | Новости';
-        data.comment = 'Эээ... революция - кровь, смерть, слезы. Где это хоть на одной картинке? Не знаю, чем авторы вдохновлялись, но на октябрьскую революцию это точно не похоже';
-        data.total_count = 57;
-        data.num = 18;
-        data.xar_list = ['Qwerty', 'Azerty', 'FooBar'];
-        */
-
-        //$(document).ready(function () {
 
         function drawOptions() {
             var inner = '<option selected></option>';
@@ -303,28 +300,32 @@
             rules: {
                 xar: {
                     required: function () {
-                            return $('#xar-list-input').val() == ''
-                        },
+                        return $('#xar-list-input').val() == ''
+                    },
                     minlength: 3
                 }
             },
             submitHandler: function (form) {
-                    $('form').ajaxSubmit({
-                        url: 'process_xar',
-                        method: 'POST',
-                        //data: $('form').serialize(),
-                        success: function (resp) {
-                            i++;
-                            COUNT.done = resp.done;
-                            COUNT.total = resp.total;
-                            XARS = resp.xars;
-                            draw(DATA.whole_data[i]);
-                            $('form').reset();
+                $('form').ajaxSubmit({
+                    url: 'process_xar',
+                    method: 'POST',
+                    //data: $('form').serialize(),
+                    success: function (resp) {
+                        i++;
+                        COUNT.done = resp.done;
+                        COUNT.total = resp.total;
+                        if (COUNT.done = COUNT.total == 0) {
+                            $('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + DATA.rubric_id + 1)
+                            $('#onAllDoneModal').modal('show');
                         }
+                        XARS = resp.xars;
+                        draw(DATA.whole_data[i]);
+                        $('form').reset();
                     }
-                    );
-                    return false;
                 }
+                );
+                return false;
+            }
         });
 
         $('#deleteIdx').click(function () {
@@ -369,6 +370,10 @@
                     COUNT.done = DATA.done_count;
                     COUNT.total = DATA.total_count;
                     XARS = DATA.xars_list;
+                    if (DATA.whole_data.length == 0) {
+                        $('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + DATA.rubric_id+1)
+                        $('#onAllDoneModal').modal('show');
+                    }
                     drawBrand();
                     draw(DATA.whole_data[i]);
                 }
