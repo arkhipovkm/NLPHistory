@@ -280,7 +280,7 @@
                 $('#progressCount').css('width', percent + '%');
                 $('#progressCount').text(COUNT.done + ' / ' + COUNT.total);
             }
-
+            $('form').trigger("reset");
             data.name = data.first_name + ' ' + data.last_name;
             data.age = Math.floor(data.age)
             data.user_link = 'https://vk.com/id' + data.user_id;
@@ -331,7 +331,6 @@
                         }
                         XARS = resp.xars;
                         draw(DATA.whole_data[i]);
-                        $('form').reset();
                     }
                 }
                 );
