@@ -72,8 +72,8 @@ class Characterize():
         response.headers['Content-Type'] = 'application/json'
         response.headers['Access-Control-Allow-Origin'] = '*'
         rubric_id = int(rubric_id)
-        ddf = df[df.rubric_id==rubric_id].sort_values(by=['likes'], ascending=False).drop_duplicates()
-        #ddf = df[df.rubric_id==rubric_id].drop_duplicates()
+        #ddf = df[df.rubric_id==rubric_id].sort_values(by=['likes'], ascending=False).drop_duplicates()
+        ddf = df[df.rubric_id==rubric_id].drop_duplicates()
         #print(len(ddf))
         ddf['age'] = (ddf.date - ddf.bdate).dt.days/365
         ddf['current'] = [x+1 for x in range(len(ddf))]
