@@ -130,10 +130,12 @@
                             <input type="text" id="note-input" name="note" class="form-control" placeholder="Комментарий">
                         </div>
                         <div class="col-12 col-md-2 col-lg-2 text-center" style="padding-top:10px">
-                            <input name="chefdoeuvre" class="form-check-input" type="checkbox" id="defaultCheck1"/>
-                            <label class="form-check-label" for="defaultCheck1">
-                                Шедевр
-                            </label>
+                            <div class="form-control form-control-lg">
+                                <input name="chefdoeuvre" class="form-check-input" type="checkbox" id="defaultCheck1" />
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Шедевр
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
@@ -269,6 +271,10 @@
                 if (percentCurrent < 100) {
                     $('#likesProgressCurrent').removeClass('bg-success');
                     $('#likesProgressCurrent').addClass('bg-danger');
+                }
+                else {
+                    $('#likesProgressCurrent').removeClass('bg-danger');
+                    $('#likesProgressCurrent').addClass('bg-success');
                 }
 
                 $('#likesProgressMean').css('width', percentMean + '%');
