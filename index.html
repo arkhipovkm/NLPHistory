@@ -157,6 +157,16 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-warning btn-block" role="button" type="button">Назад</button>
+            </div>
+            <div class="col">
+                <p class="lead"><span>Текущий номер: </span><span id="currentI"></span></p>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Delete -->
     <div class="modal fade" id="onDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -289,6 +299,7 @@
             drawCountProgress();
             $('#index-input').attr('value', data.comment_id);
             $('#rubric-id-input').attr('value', DATA.rubric_id);
+            $('#currentI').text(i);
 
         }
 
