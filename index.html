@@ -314,8 +314,8 @@
                         i++;
                         COUNT.done = resp.done;
                         COUNT.total = resp.total;
-                        if (COUNT.done = COUNT.total == 0) {
-                            $('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (DATA.rubric_id + 1))
+                        if (COUNT.done == COUNT.total) {
+                            $('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id) + 1)
                             $('#onAllDoneModal').modal('show');
                         }
                         XARS = resp.xars;
@@ -371,7 +371,7 @@
                     COUNT.total = DATA.total_count;
                     XARS = DATA.xars_list;
                     if (DATA.whole_data.length == 0) {
-                        $('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + DATA.rubric_id+1)
+                        $('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id)+1)
                         $('#onAllDoneModal').modal('show');
                     }
                     drawBrand();
