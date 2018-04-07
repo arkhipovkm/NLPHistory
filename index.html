@@ -160,7 +160,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <button class="btn btn-warning btn-block" role="button" type="button">Назад</button>
+                <button id="backBtn" class="btn btn-warning btn-block" role="button" type="button">Назад</button>
             </div>
             <div class="col">
                 <p class="lead"><span>Текущий номер: </span><span id="currentI"></span></p>
@@ -366,8 +366,14 @@
             function randomIntFromInterval(min, max) {
                 return Math.floor(Math.random() * (max - min + 1) + min);
             }
-            var r = randomIntFromInterval(i + 1, DATA.total_count);
+            r = randomIntFromInterval(i + 1, DATA.total_count);
             draw(DATA.whole_data[r])
+            r = 0;
+        })
+
+        $('#backBtn').click(function () {
+            i--;
+            draw(DATA.whole_data[i]);
         })
 
         function loadRubric() {
