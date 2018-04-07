@@ -234,6 +234,7 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 
     <script>
+        var r = 0;
         var i = 0;
         var DATA = {};
         var COUNT = {};
@@ -299,8 +300,7 @@
             drawCountProgress();
             $('#index-input').attr('value', data.comment_id);
             $('#rubric-id-input').attr('value', DATA.rubric_id);
-            $('#currentI').text(i);
-
+            $('#currentI').text(data.current);
         }
 
         function drawBrand() {

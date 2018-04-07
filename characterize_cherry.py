@@ -76,6 +76,7 @@ class Characterize():
         #ddf = df[df.rubric_id==rubric_id].drop_duplicates()
         #print(len(ddf))
         ddf['age'] = (ddf.date - ddf.bdate).dt.days/365
+        ddf['current'] = [x+1 for x in range(len(ddf))]
         group_name = ddf.group.unique()[0]
         max_likes = int(max(ddf.likes))
         mean_likes = int(np.mean(ddf.likes))
