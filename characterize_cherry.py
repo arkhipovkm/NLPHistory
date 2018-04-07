@@ -28,7 +28,7 @@ class Characterize():
         note = kwargs['note']
         print(kwargs)
         rubric_id = kwargs['rubric_id']
-        chefdoeuvre = kwargs['chefdoeuvre']
+        chefdoeuvre = 1 if 'chefdoeuvre' in kwargs.keys() else 0
 
         xar = xar_list if xar_list else xar
 
