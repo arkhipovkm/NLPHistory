@@ -394,6 +394,7 @@
                 method: 'GET',
                 success: function (resp) {
                     DATA = resp;
+                    DATA.whole_data = JSON.parse(DATA.whole_data);
                     COUNT.done = DATA.done_count;
                     COUNT.total = DATA.total_count;
                     XARS = DATA.xars_list;

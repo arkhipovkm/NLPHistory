@@ -105,6 +105,9 @@ class Characterize():
         #group_name = ddf.group.unique()[0]
         #ddf_js = ddf.head().to_json(orient='values')
 
+        #whole = json.loads(json.dumps(ddf.to_dict('records')[:300]).encode('utf-8').decode('utf-8', errors='ignore'))
+        whole = ddf[:300].to_json('records')
+
         obj = {'rubric_id': rubric_id,
                'rubric_name': rubric_name,
                'group_name': group_name,
@@ -113,7 +116,7 @@ class Characterize():
                'likes_max': max_likes,
                'likes_mean': mean_likes,
                'xars_list': xars,
-               'whole_data': ddf.to_dict('records')[:300]}
+               'whole_data': whole}
 
         return json.dumps(obj).encode('utf-8')
 
