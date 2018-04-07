@@ -106,7 +106,7 @@ class Characterize():
         #ddf_js = ddf.head().to_json(orient='values')
 
         #whole = json.loads(json.dumps(ddf.to_dict('records')[:300]).encode('utf-8').decode('utf-8', errors='ignore'))
-        whole = ddf[:300].to_json('records')
+        whole = ddf[:300].to_json(orient='records')
 
         obj = {'rubric_id': rubric_id,
                'rubric_name': rubric_name,
