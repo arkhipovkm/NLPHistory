@@ -122,5 +122,5 @@ if __name__ == '__main__':
     config.update({'tools.staticdir.index': "index.html",
                    'tools.staticdir.dir': os.getcwd(),
                    'tools.staticdir.on': True,
-                   'server.socket_host': '127.0.0.1'})
+                   'server.socket_host': '0.0.0.0'})
     quickstart(Characterize())
