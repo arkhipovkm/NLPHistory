@@ -109,7 +109,7 @@ class Characterize():
                'rubric_name': rubric_name,
                'group_name': group_name,
                'done_count': len(done),
-               'total_count': len(ddf),
+               'total_count': total_raw,
                'likes_max': max_likes,
                'likes_mean': mean_likes,
                'xars_list': xars,
