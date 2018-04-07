@@ -28,13 +28,14 @@ class Characterize():
         note = kwargs['note']
         print(kwargs)
         rubric_id = kwargs['rubric_id']
+        chefdoeuvre = kwargs['chefdoeuvre']
 
         xar = xar_list if xar_list else xar
 
         idx = '{}_{}'.format(rubric_id, index)
 
         with DB() as db:
-            db.custom_put('update id_rubric set characteristic=%s, note=%s where idx=%s', (xar, note, idx))
+            db.custom_put('update id_rubric set characteristic=%s, note=%s, is_chefdoeuvre=%s where idx=%s', (xar, note, chefdoeuvre, idx))
             total = db.custom_get('select count(*) from id_rubric where rubric_id=%s and is_deleted=0', (rubric_id, ))[0][0]
             done = db.custom_get('select count(*) from id_rubric where rubric_id=%s and characteristic is not null', (rubric_id, ))[0][0]
             xars = db.custom_get('select distinct characteristic from id_rubric where rubric_id=%s', (rubric_id, ))

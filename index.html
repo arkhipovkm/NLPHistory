@@ -115,15 +115,21 @@
         <div class="row justify-content-center">
             <div class="col">
                 <form>
-                    <div class="form-row justify-content-center">
-                        <div class="col">
+                    <div class="form-row justify-content-center align-items-center">
+                        <div class="col-5">
                             <input type="hidden" id="index-input" name="index" value="" />
                             <input type="hidden" id="rubric-id-input" name="rubric_id" value="" />
                             <!--<label for="xar-input">Характеристика</label>-->
                             <input type="text" id="xar-input" name="xar" class="form-control" placeholder="Характеристика">
                         </div>
-                        <div class="col">
+                        <div class="col-5">
                             <input type="text" id="note-input" name="note" class="form-control" placeholder="Комментарий">
+                        </div>
+                        <div class="col-12 col-md-2 col-lg-2 text-center" style="padding-top:10px">
+                            <input name="chefdoeuvre" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                Шедевр
+                            </label>
                         </div>
                     </div>
                     <div class="form-row">
@@ -141,7 +147,11 @@
                         <div class="col">
                             <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#onDeleteModal">Удалить</button>
                         </div>
-
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary btn-block" role="button" id="randomBtn">Cлучайный комментарий</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -309,7 +319,7 @@
                             COUNT.total = resp.total;
                             XARS = resp.xars;
                             draw(DATA.whole_data[i]);
-
+                            $('form').reset();
                         }
                     }
                     );
@@ -338,6 +348,14 @@
         $('#skipBtn').click(function () {
             i++;
             draw(DATA.whole_data[i]);
+        })
+
+        $('#randomBtn').click(function () {
+            function randomIntFromInterval(min, max) {
+                return Math.floor(Math.random() * (max - min + 1) + min);
+            }
+            var r = randomIntFromInterval(i + 1, DATA.total_count);
+            draw(DATA.whole_data[r])
         })
 
         function loadRubric() {
