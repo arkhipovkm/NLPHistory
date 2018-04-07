@@ -99,8 +99,8 @@ class Characterize():
         ddf = ddf.drop('bdate', axis=1)
 
         rubric_name = pd.read_pickle('rubric_names.pickle')[rubric_id]
-        group_name = ddf.group.unique()[0]
-
+        #group_name = ddf.group.unique()[0]
+        group_name = ' '
         #ddf_js = ddf.head().to_json(orient='values')
 
         obj = {'rubric_id': rubric_id,
