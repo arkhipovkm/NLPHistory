@@ -299,7 +299,6 @@
             }
 
             if (i > DATA.whole_data.length-1) {
-                //$('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id) + 1))
                 $('#onAllDoneModal').modal('show');
             }
 
@@ -401,10 +400,10 @@
 
         $('#nextRubricBtn').click(function () {
             var fb = {};
-            fb.feedback = $('#feedback').val();
+            fb.feedback = $('#feedback').value;
             fb.rubric_id = DATA.rubric_id;
             $.ajax({
-                url: 'submit_feedback/',
+                url: 'submit_feedback',
                 method: 'POST',
                 data: JSON.stringify(fb),
                 success: function (resp) {
