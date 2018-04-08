@@ -327,7 +327,7 @@
         }
 
         function drawBrand() {
-            $('#brand').text(DATA.group_name + ': ' + DATA.rubric_name + ' [' + DATA.rubric_id + ']')
+            $('#brand').text(DATA.group_name + ': ' + DATA.rubric_name + ' [' + DATA.rubric_id + ']');
         }
 
         $('form').validate({ // initialize the plugin
@@ -377,26 +377,26 @@
                     $('#onDeleteModal').modal('hide');
                 }
             })
-        })
+        });
 
         $('#skipBtn').click(function () {
             i++;
             draw(DATA.whole_data[i]);
-        })
+        });
 
         $('#randomBtn').click(function () {
             function randomIntFromInterval(min, max) {
                 return Math.floor(Math.random() * (max - min + 1) + min);
             }
-            r = randomIntFromInterval(i, DATA.whole_data.length-1);
+            r = randomIntFromInterval(i, DATA.whole_data.length - 1);
             draw(DATA.whole_data[r])
             r = 0;
-        })
+        });
 
         $('#backBtn').click(function () {
             i--;
             draw(DATA.whole_data[i]);
-        })
+        });
 
         $('#nextRubricBtn').click(function () {
             var fb = {};
@@ -410,8 +410,8 @@
                     console.log(resp);
                 }
             });
-            window.open(document.URL.split('=')[0] + (parseInt(DATA.rubric_id) + 1))
-        })
+            window.open(document.URL.split('=')[0] + (parseInt(DATA.rubric_id) + 1));
+        });
 
         function loadRubric() {
             var rid = document.URL.split('=')
