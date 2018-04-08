@@ -72,7 +72,7 @@ class Characterize():
         response.headers['Content-Type'] = 'application/json'
         response.headers['Access-Control-Allow-Origin'] = '*'
 
-        payload = json.loads(request.body.read())
+        payload = json.loads(request.body.read().decode('utf-8'))
         feedback = payload['fedback']
         rubric_id = payload['rubric_id']
         if feedback:
