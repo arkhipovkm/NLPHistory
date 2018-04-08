@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body onload="loadRubric()">
+<body>
     <header>
         <div class="container text-center">
             <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
@@ -210,10 +210,10 @@
                 <div class="modal-footer">
                     <div class="form-row align-items-center">
                         <div class="col-9">
-                            <textarea rows="3" name="feedback" placeholder="Отзыв о рубрике" type="text" class="form-control"/>
+                            <textarea rows="3" name="feedback" placeholder="Отзыв о рубрике" type="text" class="form-control"></textarea>
                         </div>
                         <div class="col-3">
-                            <a href="" id="nextRubricBtn" class="btn btn-primary btn-block">Следующая рубрика</a>
+                            <button type="button" role="button" id="nextRubricBtn" class="btn btn-primary btn-block">Следующая рубрика</button>
                         </div>
                     </div>
                 </div>
@@ -252,6 +252,28 @@
         var DATA = {};
         var COUNT = {};
         var XARS = [];
+
+        function loadRubric() {
+            var rid = document.URL.split('=')
+            //var rid = 3;
+            var resp = $.ajax({
+                url: 'get_rubric/' + rid[1],
+                method: 'GET',
+                success: function (resp) {
+                    DATA = resp;
+                    DATA.whole_data = JSON.parse(DATA.whole_data);
+                    COUNT.done = DATA.done_count;
+                    COUNT.total = DATA.total_count;
+                    XARS = DATA.xars_list;
+                    if (DATA.whole_data.length == 0) {
+                        //$('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id)+1))
+                        $('#onAllDoneModal').modal('show');
+                    }
+                    drawBrand();
+                    draw(DATA.whole_data[i]);
+                }
+            })
+        }
 
         function drawOptions() {
             var inner = '<option selected></option>';
@@ -413,27 +435,11 @@
             window.open(document.URL.split('=')[0] + (parseInt(DATA.rubric_id) + 1));
         });
 
-        function loadRubric() {
-            var rid = document.URL.split('=')
-            //var rid = 3;
-            var resp = $.ajax({
-                url: 'get_rubric/' + rid[1],
-                method: 'GET',
-                success: function (resp) {
-                    DATA = resp;
-                    DATA.whole_data = JSON.parse(DATA.whole_data);
-                    COUNT.done = DATA.done_count;
-                    COUNT.total = DATA.total_count;
-                    XARS = DATA.xars_list;
-                    if (DATA.whole_data.length == 0) {
-                        //$('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id)+1))
-                        $('#onAllDoneModal').modal('show');
-                    }
-                    drawBrand();
-                    draw(DATA.whole_data[i]);
-                }
-            })
-        }
+
+
+        $('document').ready(function () {
+            loadRubric();
+        })
 
     </script>
 </body>
