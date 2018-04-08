@@ -427,7 +427,7 @@
             $.ajax({
                 url: 'submit_feedback',
                 method: 'POST',
-                data: JSON.stringify(fb),
+                data: fb,
                 success: function (resp) {
                     console.log(resp);
                 }

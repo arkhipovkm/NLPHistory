@@ -72,9 +72,10 @@ class Characterize():
         response.headers['Content-Type'] = 'application/json'
         response.headers['Access-Control-Allow-Origin'] = '*'
 
-        payload = json.loads(request.body.read().decode('utf-8'))
-        feedback = payload['fedback']
-        rubric_id = payload['rubric_id']
+        #payload = json.loads(request.body.read().decode('utf-8'))
+        feedback = kwargs['fedback']
+        rubric_id = kwargs['rubric_id']
+
         if feedback:
             with DB() as db:
                 db.custom_put('insert ignore into rubric_feedback values (%s, %s)', (rubric_id, feedback))
