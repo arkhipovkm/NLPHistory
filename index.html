@@ -422,7 +422,7 @@
 
         $('#nextRubricBtn').click(function () {
             var fb = {};
-            fb.feedback = $('#feedback').value;
+            fb.feedback = $('#feedback').val();
             fb.rubric_id = DATA.rubric_id;
             $.ajax({
                 url: 'submit_feedback',
