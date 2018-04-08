@@ -208,7 +208,14 @@
                     Введи другую рубрику в адресной строке и перезагрузи страницу. Или просто жми на кнопку:
                 </div>
                 <div class="modal-footer">
-                    <a href="" id="nextRubricBtn" class="btn btn-primary">Следующая рубрика</a>
+                    <div class="form-row">
+                        <div class="col">
+                            <input name="feedback" placeholder="Отзыв о рубрике" type="text" class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <a href="" id="nextRubricBtn" class="btn btn-primary">Следующая рубрика</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -343,7 +350,7 @@
                         COUNT.done = resp.done;
                         COUNT.total = resp.total;
                         if (COUNT.done == COUNT.total) {
-                            $('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id) + 1))
+                            //$('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id) + 1))
                             $('#onAllDoneModal').modal('show');
                         }
                         XARS = resp.xars;
@@ -392,6 +399,21 @@
             draw(DATA.whole_data[i]);
         })
 
+        $('#nextRubricBtn').click(function () {
+            var fb = {};
+            fb.feedback = $('#feedback').val();
+            fb.rubric_id = DATA.rubric_id;
+            $.ajax({
+                url: 'submit_feedback/',
+                method: 'POST',
+                data: JSON.stringify(fb),
+                success: function (resp) {
+                    console.log(resp);
+                }
+            });
+            window.open(document.URL.split('=')[0] + (parseInt(DATA.rubric_id) + 1))
+        })
+
         function loadRubric() {
             var rid = document.URL.split('=')
             //var rid = 3;
@@ -405,7 +427,7 @@
                     COUNT.total = DATA.total_count;
                     XARS = DATA.xars_list;
                     if (DATA.whole_data.length == 0) {
-                        $('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id)+1))
+                        //$('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id)+1))
                         $('#onAllDoneModal').modal('show');
                     }
                     drawBrand();

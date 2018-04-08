@@ -68,6 +68,20 @@ class Characterize():
         return json.dumps(resp).encode('utf-8') 
 
     @expose
+    def submit_feedback(self, **kwargs):
+        response.headers['Content-Type'] = 'application/json'
+        response.headers['Access-Control-Allow-Origin'] = '*'
+
+        payload = json.loads(request.body.read())
+        feedback = payload['fedback']
+        rubric_id = payload['rubric_id']
+        if feedback:
+            with DB() as db:
+                db.custom_put('insert ignore into rubric_feedback values (%s, %s)', (rubric_id, feedback))
+        return json.dumps({'ok': True, 'feedback': feedback, 'rubric_id': rubric_id}).encode('utf-8')
+
+
+    @expose
     def get_rubric(self, rubric_id=None):
         response.headers['Content-Type'] = 'application/json'
         response.headers['Access-Control-Allow-Origin'] = '*'
