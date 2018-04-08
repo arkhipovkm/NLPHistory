@@ -432,7 +432,7 @@
                     console.log(resp);
                 }
             });
-            window.open(url=document.URL.split('=')[0] + (parseInt(DATA.rubric_id) + 1), target='');
+            window.location = document.URL.split('=')[0] + (parseInt(DATA.rubric_id) + 1);
         });
 
 
