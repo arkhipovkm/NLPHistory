@@ -66,7 +66,7 @@ def get_comments(rubric):
 
 def main():
     rubrics = get_rubrics()
-    rubrics = [x for x in rubrics if x['num'] in [29, 32, 36, 48]]
+    rubrics = [x for x in rubrics if x['num'] in [48]]
 
     def saveall():
         def save_full(comments):
@@ -95,7 +95,7 @@ def main():
         return None
 
     def populate_rubrics():
-        for n in [29, 32, 36, 48]:
+        for n in [48]:
             key = 'rubrics/unique_primary/{}.json'.format(n)
             js = s3manager._s3_get_object(key)
             rubric_num = n
@@ -111,7 +111,7 @@ def main():
         with DB() as db:
             first_15 = db.custom_get('select rubric_id from ')
 
-    #saveall()
+    saveall()
     #savemeta()
     populate_rubrics()
 
