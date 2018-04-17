@@ -10,6 +10,7 @@ def get_rubrics():
     rubrics = []
     for line in lines:
         line = line.strip('\n')
+        line = line.strip('\ufeff')
         if '#' in line:
             group = line.split('#')[-1]
             continue
