@@ -113,7 +113,7 @@ def main():
 
     #saveall()
     #savemeta()
-    #populate_rubrics()
+    populate_rubrics()
 
     #with open('result_rubrics_comments_dict_full.json', 'w') as f:
     #    json.dump(result_dict, f)
