@@ -5,7 +5,7 @@ import s3manager
 from pprint import pprint
 
 def get_rubrics():
-    with open('rubriki_list.txt', 'r', encoding='utf-8') as f:
+    with open('rubriki_list-2.txt', 'r', encoding='utf-8') as f:
         lines = f.readlines()
     rubrics = []
     for line in lines:
@@ -32,10 +32,11 @@ def get_comments(rubric):
         expr_lower = expr.lower()
         expr_upper = expr.upper()
         expr_cap = expr.capitalize()
-        stmt = '''select * from nlp_isam.comments_isam_young_text where match(text) against(%s in boolean mode) or
-                                                                        match(text) against(%s in boolean mode) or
-                                                                        match(text) against(%s in boolean mode) or
-                                                                        match(text) against(%s in boolean mode)'''
+        stmt = '''select * from nlp_isam.comments_isam_young_text where match(text) against(%s in boolean mode)
+                                                                        #or
+                                                                        #match(text) against(%s in boolean mode) or
+                                                                        #match(text) against(%s in boolean mode) or
+                                                                        #match(text) against(%s in boolean mode)'''
         args = (expr, expr_lower, expr_upper, expr_cap)
         with DB() as db:
             res = db.custom_get(stmt, args)
@@ -64,7 +65,7 @@ def get_comments(rubric):
 
 def main():
     rubrics = get_rubrics()
-    rubrics = [x for x in rubrics if x['num'] in [55, 56]]
+    rubrics = [x for x in rubrics if x['num'] in [29, 32, 36, 48]]
 
     def saveall():
         def save_full(comments):
@@ -93,7 +94,7 @@ def main():
         return None
 
     def populate_rubrics():
-        for n in range(71):
+        for n in [29, 32, 36, 48]:
             key = 'rubrics/unique_primary/{}.json'.format(n)
             js = s3manager._s3_get_object(key)
             rubric_num = n
