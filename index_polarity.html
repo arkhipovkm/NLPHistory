@@ -145,13 +145,13 @@
                         <input type="hidden" id="index-input" name="index" value="" />
                         <input type="hidden" id="rubric-id-input" name="rubric_id" value="" />
                         <div class="col">
-                            <button id="positiveBtn" role="button" type="submit" class="btn btn-success btn-block">Положительный</button>
+                            <button id="positiveBtn" role="button" class="btn btn-success btn-block">Положительный</button>
                         </div>
                         <div class="col">
-                            <button id="neutralBtn" role="button" type="submit" class="btn btn-neutral btn-block">Нейтральный</button>
+                            <button id="neutralBtn" role="button" class="btn btn-neutral btn-block">Нейтральный</button>
                         </div>
                         <div class="col">
-                            <button id="negativeBtn" role="button" type="submit" class="btn btn-danger btn-block">Отрицательный</button>
+                            <button id="negativeBtn" role="button" class="btn btn-danger btn-block">Отрицательный</button>
                         </div>
                     </div>
 
@@ -435,36 +435,36 @@
             })
         })
 
-        $('form').validate({ // initialize the plugin
-            rules: {
-                //xar: {
-                //    required: function () {
-                //        return $('#xar-list-input').val() == ''
-                //    },
-                //    minlength: 3
-                //}
-            },
-            submithandler: function (form) {
-                //$('form').ajaxsubmit({
-                //    url: 'process_xar',
-                //    method: 'post',
-                //    //data: $('form').serialize(),
-                //    success: function (resp) {
-                //        i++;
-                //        count.done = resp.done;
-                //        count.total = resp.total;
-                //        if (count.done == count.total) {
-                //            //$('#nextrubricbtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseint(data.rubric_id) + 1))
-                //            $('#onalldonemodal').modal('show');
-                //        }
-                //        xars = resp.xars;
-                //        draw(data.whole_data[i]);
-                //    }
-                //}
-                //);
-                return false;
-            }
-        });
+        //$('form').validate({ // initialize the plugin
+        //    rules: {
+        //        //xar: {
+        //        //    required: function () {
+        //        //        return $('#xar-list-input').val() == ''
+        //        //    },
+        //        //    minlength: 3
+        //        //}
+        //    },
+        //    submithandler: function (form) {
+        //        //$('form').ajaxsubmit({
+        //        //    url: 'process_xar',
+        //        //    method: 'post',
+        //        //    //data: $('form').serialize(),
+        //        //    success: function (resp) {
+        //        //        i++;
+        //        //        count.done = resp.done;
+        //        //        count.total = resp.total;
+        //        //        if (count.done == count.total) {
+        //        //            //$('#nextrubricbtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseint(data.rubric_id) + 1))
+        //        //            $('#onalldonemodal').modal('show');
+        //        //        }
+        //        //        xars = resp.xars;
+        //        //        draw(data.whole_data[i]);
+        //        //    }
+        //        //}
+        //        //);
+        //        return false;
+        //    }
+        //});
 
         //$('#deleteIdx').click(function () {
         //    $.ajax({
