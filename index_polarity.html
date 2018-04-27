@@ -270,7 +270,7 @@
             var rid = document.URL.split('=')
             //var rid = 3;
             var resp = $.ajax({
-                url: 'get_rubric/' + rid[1],
+                url: 'get_rubric_polarity/' + rid[1],
                 method: 'GET',
                 success: function (resp) {
                     DATA = resp;
