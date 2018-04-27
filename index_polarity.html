@@ -435,36 +435,36 @@
             })
         })
 
-        //$('form').validate({ // initialize the plugin
-        //    rules: {
-        //        //xar: {
-        //        //    required: function () {
-        //        //        return $('#xar-list-input').val() == ''
-        //        //    },
-        //        //    minlength: 3
-        //        //}
-        //    },
-        //    submitHandler: function (form) {
-        //        $('form').ajaxSubmit({
-        //            url: 'process_xar',
-        //            method: 'POST',
-        //            //data: $('form').serialize(),
-        //            success: function (resp) {
-        //                i++;
-        //                COUNT.done = resp.done;
-        //                COUNT.total = resp.total;
-        //                if (COUNT.done == COUNT.total) {
-        //                    //$('#nextRubricBtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseInt(DATA.rubric_id) + 1))
-        //                    $('#onAllDoneModal').modal('show');
-        //                }
-        //                XARS = resp.xars;
-        //                draw(DATA.whole_data[i]);
-        //            }
-        //        }
-        //        );
-        //        return false;
-        //    }
-        //});
+        $('form').validate({ // initialize the plugin
+            rules: {
+                //xar: {
+                //    required: function () {
+                //        return $('#xar-list-input').val() == ''
+                //    },
+                //    minlength: 3
+                //}
+            },
+            submithandler: function (form) {
+                //$('form').ajaxsubmit({
+                //    url: 'process_xar',
+                //    method: 'post',
+                //    //data: $('form').serialize(),
+                //    success: function (resp) {
+                //        i++;
+                //        count.done = resp.done;
+                //        count.total = resp.total;
+                //        if (count.done == count.total) {
+                //            //$('#nextrubricbtn').attr('href', 'http://52.24.13.80:8080/?rubric_id=' + (parseint(data.rubric_id) + 1))
+                //            $('#onalldonemodal').modal('show');
+                //        }
+                //        xars = resp.xars;
+                //        draw(data.whole_data[i]);
+                //    }
+                //}
+                //);
+                return false;
+            }
+        });
 
         //$('#deleteIdx').click(function () {
         //    $.ajax({
