@@ -18,6 +18,24 @@ class Characterize():
             '''
 
     @expose
+    def process_polarity(self, **kwargs):
+        response.headers['Content-Type'] = 'application/json'
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        index = kwargs['index']
+        rubric_id = kwargs['rubric_id']
+        idx = '{}_{}'.format(rubric_id, index)
+        polarity = kwargs['polarity']
+        with DB() as db:
+            db.custom_put('update id_rubric set polarity=%swhere idx=%s', (polarity, idx))
+            total = db.custom_get('select count(*) from id_rubric where rubric_id=%s and is_deleted=0', (rubric_id, ))[0][0]
+            done = db.custom_get('select count(*) from id_rubric where rubric_id=%s and polarity is not null', (rubric_id, ))[0][0]
+
+        resp = {'done': done,
+                'total': total}
+        return json.dumps(resp).encode('utf-8')
+
+
+    @expose
     def process_xar(self, **kwargs):
         response.headers['Content-Type'] = 'application/json'
         response.headers['Access-Control-Allow-Origin'] = '*'
@@ -26,7 +44,7 @@ class Characterize():
         xar = kwargs['xar']
         xar_list = kwargs['xar_list']
         note = kwargs['note']
-        print(kwargs)
+        #print(kwargs)
         rubric_id = kwargs['rubric_id']
         chefdoeuvre = 1 if 'chefdoeuvre' in kwargs.keys() else 0
 
@@ -138,7 +156,7 @@ class Characterize():
 if __name__ == '__main__':
     df = pd.read_pickle('df_indexed.pickle')
     #print(len(df))
-    config.update({'tools.staticdir.index': "index.html",
+    config.update({'tools.staticdir.index': "index_polarity.html",
                    'tools.staticdir.dir': os.getcwd(),
                    'tools.staticdir.on': True,
                    'server.socket_host': '0.0.0.0'})
