@@ -58,7 +58,7 @@ def get_comments(rubric):
         def filter_primary(resmeta):
             return [x for x in resmeta if x[-1] == 0]
 
-        #resmeta = filter_primary(resmeta)
+        resmeta = filter_primary(resmeta)
         #rubric_comments += filter_unique(resmeta)
         rubric_comments += filter_unique(resmeta)
         #del res
