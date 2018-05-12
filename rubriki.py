@@ -5,7 +5,7 @@ import s3manager
 from pprint import pprint
 
 def get_rubrics():
-    with open('rubriki_list-2.txt', 'r', encoding='utf-8') as f:
+    with open('rubriki_list.txt', 'r', encoding='utf-8') as f:
         lines = f.readlines()
     rubrics = []
     for line in lines:
@@ -33,7 +33,7 @@ def get_comments(rubric):
         expr_lower = expr.lower()
         expr_upper = expr.upper()
         expr_cap = expr.capitalize()
-        stmt = '''select * from nlp_isam.comments_isam_old_text where match(text) against(%s in boolean mode)
+        stmt = '''select * from nlp_isam.comments_isam_old_text where match(text) against(%s in boolean mode)'''
                                                                         #or
                                                                         #match(text) against(%s in boolean mode) or
                                                                         #match(text) against(%s in boolean mode) or
@@ -44,7 +44,7 @@ def get_comments(rubric):
             def getmeta(comm_id):
                 return db.custom_get('''select user_id, reply_to_user is not null as isreply from comments_isam_old join users_isam on comments_isam_old.user_id=users_isam.id where comments_isam_old.id=%s''', (comm_id, ))[0]
 
-            resmeta = res
+            resmeta = [[x]+list(getmeta(x[0])) for x in res]
 
         def filter_unique(resmeta):
             seen = set()
@@ -59,7 +59,8 @@ def get_comments(rubric):
             return [x for x in resmeta if x[-1] == 0]
 
         #resmeta = filter_primary(resmeta)
-        rubric_comments += res
+        #rubric_comments += filter_unique(resmeta)
+        rubric_comments += filter_unique(resmeta)
         #del res
         print('Acquired comments for rubric: {}'.format(expr))
     return rubric_comments
