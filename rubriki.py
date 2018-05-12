@@ -38,7 +38,7 @@ def get_comments(rubric):
                                                                         #match(text) against(%s in boolean mode) or
                                                                         #match(text) against(%s in boolean mode) or
                                                                         #match(text) against(%s in boolean mode)'''
-        args = (expr)#, expr_lower, expr_upper, expr_cap)
+        args = (expr, )#, expr_lower, expr_upper, expr_cap)
         with DB() as db:
             res = db.custom_get(stmt, args)
             def getmeta(comm_id):
