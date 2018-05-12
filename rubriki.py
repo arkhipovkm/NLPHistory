@@ -33,7 +33,7 @@ def get_comments(rubric):
         expr_lower = expr.lower()
         expr_upper = expr.upper()
         expr_cap = expr.capitalize()
-        stmt = '''select * from nlp_isam.comments_isam_young_text where match(text) against(%s in boolean mode)
+        stmt = '''select * from nlp_isam.comments_isam_old_text where match(text) against(%s in boolean mode)
                                                                         #or
                                                                         #match(text) against(%s in boolean mode) or
                                                                         #match(text) against(%s in boolean mode) or
@@ -42,7 +42,7 @@ def get_comments(rubric):
         with DB() as db:
             res = db.custom_get(stmt, args)
             def getmeta(comm_id):
-                return db.custom_get('''select user_id, reply_to_user is not null as isreply from comments_isam_young join users_isam on comments_isam_young.user_id=users_isam.id where comments_isam_young.id=%s''', (comm_id, ))[0]
+                return db.custom_get('''select user_id, reply_to_user is not null as isreply from comments_isam_young join users_isam on comments_isam_old.user_id=users_isam.id where comments_isam_young.id=%s''', (comm_id, ))[0]
 
             resmeta = [[x]+list(getmeta(x[0])) for x in res]
 
@@ -58,27 +58,27 @@ def get_comments(rubric):
         def filter_primary(resmeta):
             return [x for x in resmeta if x[-1] == 0]
 
-        resmeta = filter_primary(resmeta)
-        rubric_comments += filter_unique(resmeta)
+        #resmeta = filter_primary(resmeta)
+        #rubric_comments += filter_unique(resmeta)
         #del res
         print('Acquired comments for rubric: {}'.format(expr))
     return rubric_comments
 
 def main():
     rubrics = get_rubrics()
-    rubrics = [x for x in rubrics if x['num'] in [48]]
+    #rubrics = [x for x in rubrics if x['num'] in [48]]
 
     def saveall():
         def save_full(comments):
             res = {'group': rubric['group'], 'num': rubric['num'], 'rubric': rubric['rubrics'], 'count': len(comments), 'comments': comments}
-            key = 'rubrics/unique_primary/{}.json'.format(rubric['num'])
+            key = 'rubrics/old/{}.json'.format(rubric['num'])
             _s3_upload(json.dumps(res), key)
             _s3_make_public(key)
             return None
         for rubric in rubrics:
             comments = get_comments(rubric['rubrics'])
             save_full(comments)
-
+    
     def savemeta():
         total = 0
         result= []
@@ -93,10 +93,10 @@ def main():
         _s3_upload(json.dumps(result_dict), key)
         _s3_make_public(key)
         return None
-
+        
     def populate_rubrics():
-        for n in [48]:
-            key = 'rubrics/unique_primary/{}.json'.format(n)
+        for n in []:
+            key = 'rubrics/old/{}.json'.format(n)
             js = s3manager._s3_get_object(key)
             rubric_num = n
             rubric_name = js['rubric']
@@ -113,7 +113,7 @@ def main():
 
     saveall()
     #savemeta()
-    populate_rubrics()
+    #populate_rubrics()
 
     #with open('result_rubrics_comments_dict_full.json', 'w') as f:
     #    json.dump(result_dict, f)

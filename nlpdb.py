@@ -79,33 +79,35 @@ class DB():
         self.connect()
 
     def connect(self):
+        '''
         if system() == 'Windows':
             import pymysql
-            '''
+            
             con = pymysql.connect(user='marianne',
                                   database = 'nlp',
                                   host = HOST,
                                   password=PASS,
                                   charset='utf8mb4')
-                                  '''
+                                  
             con = pymysql.connect(user=USER,
                                   database='nlp_isam',
                                   host=HOST,
                                   password=PASS,
                                   charset='utf8mb4')
-        else:
-            import mysql.connector
-            con = mysql.connector.connect(user=USER,
-                                            database = 'nlp_isam',
-                                            host = HOST,
-                                            password=PASS,
-                                            charset='utf8mb4',
-                                            collation='utf8mb4_unicode_ci')
+                                  '''
+        #else:
+        import mysql.connector
+        con = mysql.connector.connect(user=USER,
+                                        database = 'nlp_isam',
+                                        host = HOST,
+                                        password=PASS,
+                                        charset='utf8mb4',
+                                        collation='utf8mb4_unicode_ci')
 
         con.get_warnings=False
 
         self.con = con
-        self.cur = self.con.cursor()
+        self.cur = self.con.cursor(named_tuple=True)
 
     def __del__(self):
         self.close()
