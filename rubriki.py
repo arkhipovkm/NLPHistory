@@ -42,7 +42,7 @@ def get_comments(rubric):
         with DB() as db:
             res = db.custom_get(stmt, args)
             def getmeta(comm_id):
-                return db.custom_get('''select user_id, reply_to_user is not null as isreply from comments_isam_old join users_isam on comments_isam_old.user_id=users_isam.id where comments_isam_young.id=%s''', (comm_id, ))[0]
+                return db.custom_get('''select user_id, reply_to_user is not null as isreply from comments_isam_old join users_isam on comments_isam_old.user_id=users_isam.id where comments_isam_old.id=%s''', (comm_id, ))[0]
 
             resmeta = [[x]+list(getmeta(x[0])) for x in res]
 
