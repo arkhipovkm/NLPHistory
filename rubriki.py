@@ -33,7 +33,7 @@ def get_comments(rubric):
         expr_lower = expr.lower()
         expr_upper = expr.upper()
         expr_cap = expr.capitalize()
-        stmt = '''select * from nlp_isam.comments_isam_old_text where match(text) against(%s in boolean mode)
+        stmt = '''select * from nlp_isam.comments_isam_old_text where match(text) against(%s in boolean mode)'''
                                                                         #or
                                                                         #match(text) against(%s in boolean mode) or
                                                                         #match(text) against(%s in boolean mode) or
