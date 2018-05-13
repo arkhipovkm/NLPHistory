@@ -96,7 +96,7 @@ def main():
         return None
         
     def populate_rubrics():
-        for n in len(rubrics):
+        for n in range(1,len(rubrics)+1):
             key = 'rubrics/old/{}.json'.format(n)
             js = s3manager._s3_get_object(key)
             rubric_num = n
