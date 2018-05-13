@@ -5,7 +5,7 @@ import s3manager
 from pprint import pprint
 
 def get_rubrics():
-    with open('rubriki_list-2.txt', 'r', encoding='utf-8') as f:
+    with open('rubriki_list.txt', 'r', encoding='utf-8') as f:
         lines = f.readlines()
     rubrics = []
     for line in lines:
@@ -96,7 +96,7 @@ def main():
         return None
         
     def populate_rubrics():
-        for n in []:
+        for n in len(rubrics):
             key = 'rubrics/old/{}.json'.format(n)
             js = s3manager._s3_get_object(key)
             rubric_num = n
