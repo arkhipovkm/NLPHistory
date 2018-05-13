@@ -103,7 +103,7 @@ def main():
             rubric_name = js['rubric']
             ids = [x[0][0] for x in js['comments']]
             with DB() as db:
-                db.custom_put_many('insert ignore into id_rubric (idx, comment_id, rubric_id) values (%s, %s, %s)',
+                db.custom_put_many('insert ignore into id_rubric_old (idx, comment_id, rubric_id) values (%s, %s, %s)',
                                    tuple(zip(['{}_{}'.format(n, x) for x in ids],
                                              [x for x in ids],
                                              [n for x in ids])))
@@ -112,9 +112,9 @@ def main():
         with DB() as db:
             first_15 = db.custom_get('select rubric_id from ')
 
-    saveall()
+    #saveall()
     #savemeta()
-    #populate_rubrics()
+    populate_rubrics()
 
     #with open('result_rubrics_comments_dict_full.json', 'w') as f:
     #    json.dump(result_dict, f)
